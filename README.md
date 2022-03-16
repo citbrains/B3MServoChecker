@@ -1,6 +1,8 @@
 # B3MServoChecker
 This application is used to check Kondo B3M.
 
+### Function
+
 Under construction
 
 0) Basic check
@@ -19,3 +21,8 @@ Running at constant PWM and check for changes in speed.
 Setting to position control mode, applying external force to detect backlash
 
 5) Vibration
+
+### Environment
+
+Windows10  
+Visual Studio Community 2019  
