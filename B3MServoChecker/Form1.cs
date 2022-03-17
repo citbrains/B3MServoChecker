@@ -14,9 +14,9 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace B3MServoChecker
 {
-    public partial class Form1 : Form
+    public partial class FormB3ServoChecker : Form
     {
-        public Form1()
+        public FormB3ServoChecker()
         {
             InitializeComponent();
         }
@@ -59,8 +59,9 @@ namespace B3MServoChecker
             double[] angle = new double[500];
             Debug.Listeners.Add(new TextWriterTraceListener(Console.Out));
             byte id = (byte)numericUpDownID.Value;
+            _b3m.setGain(id, 1000, 0, 0);
 
-            _b3m.setAngle(id, 100);
+            _b3m.setAngleWithPosControl(id, 10);
             Thread.Sleep(1000);
             _b3m.setAngle(id, 0);
             for (int i = 0; i < 500;)
@@ -152,6 +153,45 @@ namespace B3MServoChecker
         }
         double min_angle, max_angle;
 
+        private void buttonServoOff_Click(object sender, EventArgs e)
+        {
+            _b3m.servoOff((byte)numericUpDownID.Value);
+        }
+
+        private void buttonVibration_Click(object sender, EventArgs e)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            double period = 100;
+            double p1 = sw.Elapsed.TotalMilliseconds - period;
+            double p2 = sw.Elapsed.TotalMilliseconds;
+
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.setFFMode(id);
+            _b3m.setPWM(id, 0);
+            double pwm = 500;
+
+            for(double freq = 100; freq > 2; freq /= 2)
+            for (int i = 0; i < (1000 / freq);) 
+            {
+                if ((p2 - p1) >= freq)
+                {
+                    p1 = p2;
+                    pwm *= -1;
+                    _b3m.setPWM(id, pwm);
+                    i++;
+                }
+                p2 = sw.Elapsed.TotalMilliseconds;
+            }
+            _b3m.setPWM(id, 0);
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            freq = trackBar1.Value;
+        }
+        int freq = 1000;
+
         private void buttonMinPWM_Click(object sender, EventArgs e)
         {
             byte id = (byte)numericUpDownID.Value;
@@ -159,7 +199,7 @@ namespace B3MServoChecker
             _b3m.setPWM(id, 0);
             double angle0 = 0;
             _b3m.getAngle(id, ref angle0);
-            for(int i = 0; i < 2000; i += 10)
+            for(int i = 0; i < 2000; i += 1)
             {
                 _b3m.setPWM(id, (double)i);
                 textBoxMinPWM.Text = i.ToString();
