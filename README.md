@@ -26,3 +26,9 @@ Setting to position control mode, applying external force to detect backlash
 
 Windows10  
 Visual Studio Community 2019  
+
+### Backlash  
+
+How to measure backlash  
+
+[![IMAGE](http://img.youtube.com/vi/nS0xw7NbkSw/0.jpg)](https://youtu.be/nS0xw7NbkSw)
