@@ -26,10 +26,10 @@ Setting to position control mode, applying external force to detect backlash
 
 - Windows10  
 Visual Studio Community 2019  
-(If you just execute it, you don't need Visual Studio.)
+(If you just execute it, you don't need Visual Studio.)  
 
-- Ubuntu1804
-mono
+- Ubuntu1804  
+mono  
 
 ### Backlash  
 
