@@ -113,30 +113,97 @@ namespace B3MServoChecker
             return true;
         }
 
-        public bool setGain(byte servoID, double kp, double kd, double ki)
+        public bool setGain(byte servoID, double kp, double kd, double ki, double static_friction, double dynamic_friction)
         {
             ByteList cmd = new ByteList();
             byte[] rx = new byte[5];
             ulong kp100 = (ulong)(kp * 100);
+
             byte[] kp_bytes = BitConverter.GetBytes(kp100);
             cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, B3MLib.B3MLib.CONTROL_KP0, servoID, kp_bytes);
             B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
             ulong kd100 = (ulong)(kd * 100);
+            
             byte[] kd_bytes = BitConverter.GetBytes(kd100);
             cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, B3MLib.B3MLib.CONTROL_KD0, servoID, kd_bytes);
             B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
             ulong ki100 = (ulong)(ki * 100);
+            
             byte[] ki_bytes = BitConverter.GetBytes(ki100);
             cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, B3MLib.B3MLib.CONTROL_KI0, servoID, ki_bytes);
             B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
-            byte[] static_bytes = BitConverter.GetBytes(0);
+            
+            byte[] static_bytes = BitConverter.GetBytes((short)static_friction);
             cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, servoID, static_bytes);
             B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
-            byte[] dynamic_bytes = BitConverter.GetBytes(0);
+            
+            byte[] dynamic_bytes = BitConverter.GetBytes((short)dynamic_friction);
             cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, servoID, dynamic_bytes);
             B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+            
             return true;
+        }
 
+        public bool getGain(byte servoID, ref double kp, ref double kd, ref double ki, ref double static_friction, ref double dynamic_friction)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[9];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONTROL_KP0, 4, servoID);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            long kp100 = (long)Extensions.Converter.ByteConverter.ByteArrayToInt32(rx[4], rx[5], rx[6], rx[7]);
+            kp = (double)kp100 / 100;
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONTROL_KD0, 4, servoID);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            long kd100 = (long)Extensions.Converter.ByteConverter.ByteArrayToInt32(rx[4], rx[5], rx[6], rx[7]);
+            kd = (double)kd100 / 100;
+            
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONTROL_KI0, 4, servoID);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            long ki100 = (long)Extensions.Converter.ByteConverter.ByteArrayToInt32(rx[4], rx[5], rx[6], rx[7]);
+            ki = (double)ki100 / 100;
+            
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 2, servoID);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            static_friction = (double)Extensions.Converter.ByteConverter.ByteArrayToInt16(rx[4], rx[5]);
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 2, servoID);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            dynamic_friction = (double)Extensions.Converter.ByteConverter.ByteArrayToInt16(rx[4], rx[5]);
+
+            return true;
+        }
+
+        public bool setPWMFrequency(byte servoID, short frequency)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[5];
+            byte PWM_ADDRESS = 0x4E;
+            byte[] frequency_bytes = BitConverter.GetBytes(frequency);
+
+            cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, PWM_ADDRESS, servoID, frequency_bytes);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+
+            return true;
+        }
+
+        public bool getPWMFrequency(byte servoID, ref short frequency)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[7];
+            byte PWM_ADDRESS = 0x4E;
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, PWM_ADDRESS, 2, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            frequency = (short)Extensions.Converter.ByteConverter.ByteArrayToInt16(rx[4], rx[5]);
+            
+            return true;
         }
 
         private SerialPort _serialPort;
