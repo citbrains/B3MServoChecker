@@ -15,6 +15,9 @@ namespace B3MServoChecker
 {
     public partial class FormB3ServoChecker : Form
     {
+        B3MServo _b3m;
+        bool is_all_parameters_set = false;
+
         public FormB3ServoChecker()
         {
             InitializeComponent();
@@ -43,7 +46,9 @@ namespace B3MServoChecker
         private void trackBarPos_Scroll(object sender, EventArgs e)
         {
             byte id = (byte)numericUpDownID.Value;
-            _b3m.setAngle(id, (double)trackBarPos.Value / 100);
+            int target_angle = trackBarPos.Value;
+            textBoxTargetAngle.Text = string.Format("{0}", target_angle);
+            _b3m.setAngle(id, (double)target_angle);
         }
 
         private void buttonStepResponse_Click(object sender, EventArgs e)
@@ -73,39 +78,10 @@ namespace B3MServoChecker
                 p2 = sw.Elapsed.TotalMilliseconds;
             }
             Debug.WriteLine("FINISH");
-            StreamWriter file = new StreamWriter(@"results.csv", false, Encoding.UTF8);
+            StreamWriter file = new StreamWriter(@"step_response.csv", false, Encoding.UTF8);
             for (int i = 0; i < 500; i ++)
             {
                 file.WriteLine(string.Format("{0}", angle[i]));
-            }
-            file.Close();
-        }
-
-        B3MServo _b3m;
-
-        private void buttonTorque_Click(object sender, EventArgs e)
-        {
-            double[] current = new double[500];
-            double[] pwm = new double[500];
-            byte id = (byte)numericUpDownID.Value;
-
-            _b3m.setGain((byte)numericUpDownID.Value, 1000, 0, 0, 0, 0);
-            readParameters();
-            _b3m.setAngle(id, 0);
-            Thread.Sleep(1000);
-            Debug.WriteLine("START");
-            for (int i = 0; i < 500; i++)
-            {
-                _b3m.getPWM(id, ref pwm[i]);
-                Thread.Sleep(5);
-                _b3m.getCurrent(id, ref current[i]);
-                Thread.Sleep(5);
-            }
-            Debug.WriteLine("FINISH");
-            StreamWriter file = new StreamWriter(@"torque.csv", false, Encoding.UTF8);
-            for (int i = 0; i < 500; i++)
-            {
-                file.WriteLine(string.Format("{0}, {1}", pwm[i], current[i]));
             }
             file.Close();
         }
@@ -183,13 +159,14 @@ namespace B3MServoChecker
             try
             {
                 serialPort1.Open();
+                readParameters();
+                is_all_parameters_set = true;
             }
             catch
             {
                 MessageBox.Show("COMが開けません！！");
                 serialPort1.Close();
             }
-            readParameters();
         }
 
         private void comboBoxBitrate_SelectedIndexChanged(object sender, EventArgs e)
@@ -199,13 +176,14 @@ namespace B3MServoChecker
             try
             {
                 serialPort1.Open();
+                readParameters();
+                is_all_parameters_set = true;
             }
             catch
             {
                 MessageBox.Show("COMが開けません！！");
                 serialPort1.Close();
             }
-            readParameters();
         }
 
         private void buttonMinPWM_Click(object sender, EventArgs e)
@@ -270,6 +248,100 @@ namespace B3MServoChecker
             numericUpDownKi.Value = (decimal)(ki / (system_clock / pwm_frequency));
             numericUpDownStatic.Value = (decimal)(static_friction / (system_clock / pwm_frequency));
             numericUpDownDynamic.Value = (decimal)(dynamic_friction / (system_clock / pwm_frequency));
+        }
+
+        private void numericUpDownParameter_ValueChanged(object sender, EventArgs e)
+        {
+            if (is_all_parameters_set) writeParameters();
+        }
+
+        private void writeParameters()
+        {
+            double system_clock = 50000000.0;
+            byte id = (byte)numericUpDownID.Value;
+            short pwm_frequency = (short)numericUpDownPWMFrequency.Value;
+            _b3m.setPWMFrequency(id, pwm_frequency);
+            short kp = (short)((double)numericUpDownKp.Value * system_clock / pwm_frequency);
+            short kd = (short)((double)numericUpDownKd.Value * system_clock / pwm_frequency);
+            short ki = (short)((double)numericUpDownKi.Value * system_clock / pwm_frequency);
+            short static_friction = (short)((double)numericUpDownStatic.Value * system_clock / pwm_frequency);
+            short dynamic_friction = (short)((double)numericUpDownDynamic.Value * system_clock / pwm_frequency);
+            _b3m.setGain(id, kp, kd, ki, static_friction, dynamic_friction);
+        }
+
+        private void buttonCurrent_Click(object sender, EventArgs e)
+        {
+            double[] current = new double[500];
+            double[] pwm = new double[500];
+            byte id = (byte)numericUpDownID.Value;
+
+            _b3m.setGain(id, 1000, 0, 0, 0, 0);
+            readParameters();
+            for (int i = 0; i < 500; i++)
+            {
+                _b3m.getPWM(id, ref pwm[i]);
+                Thread.Sleep(5);
+                _b3m.getCurrent(id, ref current[i]);
+                Thread.Sleep(5);
+            }
+            StreamWriter file = new StreamWriter(@"pwm_current.csv", false, Encoding.UTF8);
+            file.WriteLine("Duty ratio, Current(A)");
+            for (int i = 0; i < 500; i++)
+            {
+                file.WriteLine(string.Format("{0}, {1}", pwm[i], current[i]));
+            }
+            file.Close();
+        }
+
+        private void buttonPWMDuty_Click(object sender, EventArgs e)
+        {
+            double angular_vel = 0;
+            double[] angle = new double[500];
+            double[] angular_velocity = new double[500];
+            byte id = (byte)numericUpDownID.Value;
+            double tc = (double)numericUpDownSpeedFilter.Value;
+            double pwm_duty = (double)numericUpDownPWMDuty.Value;
+            _b3m.servoOff(id);
+            _b3m.setPWM(id, 0);
+            _b3m.setFFMode(id);
+            _b3m.setPWM(id, pwm_duty);
+            Thread.Sleep(1000);
+            _b3m.getAngularVelocity(id, ref angular_velocity[0]);
+            for (int i = 1; i < 100; i += 1)
+            {
+                _b3m.getAngularVelocity(id, ref angular_vel);
+                angular_velocity[i] = tc * angular_velocity[i - 1] + (1.0 - tc) * angular_vel;
+                Thread.Sleep(10);
+            }
+            _b3m.getAngle(id, ref angle[0]);
+            angular_velocity[0] = angular_velocity[100 - 1];
+            double x0 = 300, y0 = 300, xr = 280.0 / 180, yr = 300.0 / 100;
+            Graphics g = this.pictureBoxSpeed.CreateGraphics();
+            g.DrawLine(Pens.Black, (int)(-180 * xr + x0), (int)y0, (int)(180 * xr + x0), (int)y0);
+            g.DrawLine(Pens.Black, (int)x0, (int)y0, (int)x0, 0);
+            Bitmap p = new Bitmap(this.pictureBoxSpeed.Width, this.pictureBoxSpeed.Height);
+            for (int i = 1; i < 500; i += 1)
+            {
+                _b3m.getAngle(id, ref angle[i]);
+                Thread.Sleep(5);
+                _b3m.getAngularVelocity(id, ref angular_vel);
+                angular_velocity[i] = tc * angular_velocity[i - 1] + (1.0 - tc) * angular_vel;
+                progressBarSpeed.Value = i / 5;
+                Thread.Sleep(5);
+                int y = (int)(-angular_velocity[i] * yr + y0);
+                y = Math.Max(Math.Min(y, this.pictureBoxSpeed.Height - 1), 0);
+                p.SetPixel((int)(angle[i] * xr + x0), y, Color.Black);
+                g.DrawImageUnscaled(p, 0, 0);
+            }
+            _b3m.servoOff(id);
+            progressBarSpeed.Value = 0;
+            StreamWriter file = new StreamWriter(@"speed.csv", false, Encoding.UTF8);
+            file.WriteLine("angle(deg), speed(deg/s)");
+            for (int i = 0; i < 500; i++)
+            {
+                file.WriteLine(string.Format("{0}, {1}", angle[i], angular_velocity[i]));
+            }
+            file.Close();
         }
     }
 }

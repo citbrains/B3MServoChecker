@@ -76,6 +76,17 @@ namespace B3MServoChecker
             return true;
         }
 
+        public bool getAngularVelocity(byte servoID, ref double angular_vel_deg)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[7];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.SERVO_CURRENT_VELOCITY, 2, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            angular_vel_deg = (double)((short)Extensions.Converter.ByteConverter.ByteArrayToInt16(rx[4], rx[5])) / 100;
+            return true;
+        }
+
         public bool setPWM(byte servoID, double duty)
         {
             ByteList cmd = new ByteList();

@@ -36,14 +36,16 @@ namespace B3MServoChecker
             this.trackBarPos = new System.Windows.Forms.TrackBar();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabBasic = new System.Windows.Forms.TabPage();
+            this.textBoxTargetAngle = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.tabPageStepResp = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonStepResponse = new System.Windows.Forms.Button();
             this.tabPageTorque = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.buttonVibration = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.textBoxMinPWM = new System.Windows.Forms.TextBox();
             this.buttonMinPWM = new System.Windows.Forms.Button();
-            this.buttonTorque = new System.Windows.Forms.Button();
+            this.buttonCurrent = new System.Windows.Forms.Button();
             this.tabPageBacklash = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxAngle = new System.Windows.Forms.TextBox();
@@ -53,6 +55,9 @@ namespace B3MServoChecker
             this.textBoxBacklash = new System.Windows.Forms.TextBox();
             this.buttonBacklash = new System.Windows.Forms.Button();
             this.buttonBacklashFree = new System.Windows.Forms.Button();
+            this.tabPageVibration = new System.Windows.Forms.TabPage();
+            this.buttonVibration = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tabPageSetParameter = new System.Windows.Forms.TabPage();
             this.numericUpDownID = new System.Windows.Forms.NumericUpDown();
             this.buttonServoOff = new System.Windows.Forms.Button();
@@ -73,14 +78,28 @@ namespace B3MServoChecker
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownPWMFrequency = new System.Windows.Forms.NumericUpDown();
             this.timerPictureBoxAngle = new System.Windows.Forms.Timer(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tabPageSpeed = new System.Windows.Forms.TabPage();
+            this.buttonPWMDuty = new System.Windows.Forms.Button();
+            this.numericUpDownPWMDuty = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.pictureBoxSpeed = new System.Windows.Forms.PictureBox();
+            this.progressBarSpeed = new System.Windows.Forms.ProgressBar();
+            this.numericUpDownSpeedFilter = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
             this.tabPageStepResp.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPageTorque.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPageBacklash.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).BeginInit();
+            this.tabPageVibration.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKd)).BeginInit();
@@ -88,6 +107,10 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStatic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDynamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMFrequency)).BeginInit();
+            this.tabPageSpeed.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMDuty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeedFilter)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -119,14 +142,15 @@ namespace B3MServoChecker
             // 
             // trackBarPos
             // 
-            this.trackBarPos.LargeChange = 100;
-            this.trackBarPos.Location = new System.Drawing.Point(4, 5);
+            this.trackBarPos.LargeChange = 10;
+            this.trackBarPos.Location = new System.Drawing.Point(4, 32);
             this.trackBarPos.Margin = new System.Windows.Forms.Padding(2);
-            this.trackBarPos.Maximum = 32000;
-            this.trackBarPos.Minimum = -32000;
+            this.trackBarPos.Maximum = 320;
+            this.trackBarPos.Minimum = -320;
             this.trackBarPos.Name = "trackBarPos";
             this.trackBarPos.Size = new System.Drawing.Size(604, 45);
             this.trackBarPos.TabIndex = 3;
+            this.trackBarPos.TickFrequency = 10;
             this.trackBarPos.Scroll += new System.EventHandler(this.trackBarPos_Scroll);
             // 
             // tabControl1
@@ -134,7 +158,9 @@ namespace B3MServoChecker
             this.tabControl1.Controls.Add(this.tabBasic);
             this.tabControl1.Controls.Add(this.tabPageStepResp);
             this.tabControl1.Controls.Add(this.tabPageTorque);
+            this.tabControl1.Controls.Add(this.tabPageSpeed);
             this.tabControl1.Controls.Add(this.tabPageBacklash);
+            this.tabControl1.Controls.Add(this.tabPageVibration);
             this.tabControl1.Controls.Add(this.tabPageSetParameter);
             this.tabControl1.Location = new System.Drawing.Point(0, 56);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
@@ -147,6 +173,8 @@ namespace B3MServoChecker
             // tabBasic
             // 
             this.tabBasic.BackColor = System.Drawing.Color.Transparent;
+            this.tabBasic.Controls.Add(this.textBoxTargetAngle);
+            this.tabBasic.Controls.Add(this.label11);
             this.tabBasic.Controls.Add(this.trackBarPos);
             this.tabBasic.Location = new System.Drawing.Point(4, 22);
             this.tabBasic.Margin = new System.Windows.Forms.Padding(2);
@@ -156,9 +184,28 @@ namespace B3MServoChecker
             this.tabBasic.TabIndex = 0;
             this.tabBasic.Text = "Basic";
             // 
+            // textBoxTargetAngle
+            // 
+            this.textBoxTargetAngle.Location = new System.Drawing.Point(88, 8);
+            this.textBoxTargetAngle.Name = "textBoxTargetAngle";
+            this.textBoxTargetAngle.ReadOnly = true;
+            this.textBoxTargetAngle.Size = new System.Drawing.Size(100, 19);
+            this.textBoxTargetAngle.TabIndex = 5;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(8, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 12);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "Target Angle";
+            // 
             // tabPageStepResp
             // 
             this.tabPageStepResp.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageStepResp.Controls.Add(this.label13);
+            this.tabPageStepResp.Controls.Add(this.pictureBox1);
             this.tabPageStepResp.Controls.Add(this.buttonStepResponse);
             this.tabPageStepResp.Location = new System.Drawing.Point(4, 22);
             this.tabPageStepResp.Margin = new System.Windows.Forms.Padding(2);
@@ -167,6 +214,15 @@ namespace B3MServoChecker
             this.tabPageStepResp.Size = new System.Drawing.Size(616, 358);
             this.tabPageStepResp.TabIndex = 1;
             this.tabPageStepResp.Text = "Step Resp.";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(616, 336);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // buttonStepResponse
             // 
@@ -182,11 +238,11 @@ namespace B3MServoChecker
             // tabPageTorque
             // 
             this.tabPageTorque.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageTorque.Controls.Add(this.trackBar1);
-            this.tabPageTorque.Controls.Add(this.buttonVibration);
+            this.tabPageTorque.Controls.Add(this.label12);
+            this.tabPageTorque.Controls.Add(this.pictureBox2);
             this.tabPageTorque.Controls.Add(this.textBoxMinPWM);
             this.tabPageTorque.Controls.Add(this.buttonMinPWM);
-            this.tabPageTorque.Controls.Add(this.buttonTorque);
+            this.tabPageTorque.Controls.Add(this.buttonCurrent);
             this.tabPageTorque.Location = new System.Drawing.Point(4, 22);
             this.tabPageTorque.Margin = new System.Windows.Forms.Padding(2);
             this.tabPageTorque.Name = "tabPageTorque";
@@ -194,32 +250,18 @@ namespace B3MServoChecker
             this.tabPageTorque.TabIndex = 2;
             this.tabPageTorque.Text = "Torque";
             // 
-            // trackBar1
+            // pictureBox2
             // 
-            this.trackBar1.Location = new System.Drawing.Point(20, 202);
-            this.trackBar1.Margin = new System.Windows.Forms.Padding(2);
-            this.trackBar1.Maximum = 1000;
-            this.trackBar1.Minimum = 1;
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(558, 45);
-            this.trackBar1.TabIndex = 7;
-            this.trackBar1.Value = 1000;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // buttonVibration
-            // 
-            this.buttonVibration.Location = new System.Drawing.Point(19, 179);
-            this.buttonVibration.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonVibration.Name = "buttonVibration";
-            this.buttonVibration.Size = new System.Drawing.Size(70, 18);
-            this.buttonVibration.TabIndex = 6;
-            this.buttonVibration.Text = "vibration";
-            this.buttonVibration.UseVisualStyleBackColor = true;
-            this.buttonVibration.Click += new System.EventHandler(this.buttonVibration_Click);
+            this.pictureBox2.BackColor = System.Drawing.Color.White;
+            this.pictureBox2.Location = new System.Drawing.Point(8, 32);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(400, 320);
+            this.pictureBox2.TabIndex = 8;
+            this.pictureBox2.TabStop = false;
             // 
             // textBoxMinPWM
             // 
-            this.textBoxMinPWM.Location = new System.Drawing.Point(19, 141);
+            this.textBoxMinPWM.Location = new System.Drawing.Point(456, 32);
             this.textBoxMinPWM.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxMinPWM.Name = "textBoxMinPWM";
             this.textBoxMinPWM.Size = new System.Drawing.Size(131, 19);
@@ -227,25 +269,25 @@ namespace B3MServoChecker
             // 
             // buttonMinPWM
             // 
-            this.buttonMinPWM.Location = new System.Drawing.Point(19, 118);
+            this.buttonMinPWM.Location = new System.Drawing.Point(456, 8);
             this.buttonMinPWM.Margin = new System.Windows.Forms.Padding(2);
             this.buttonMinPWM.Name = "buttonMinPWM";
-            this.buttonMinPWM.Size = new System.Drawing.Size(56, 18);
+            this.buttonMinPWM.Size = new System.Drawing.Size(128, 20);
             this.buttonMinPWM.TabIndex = 4;
-            this.buttonMinPWM.Text = "minPWM";
+            this.buttonMinPWM.Text = "Min. PWM";
             this.buttonMinPWM.UseVisualStyleBackColor = true;
             this.buttonMinPWM.Click += new System.EventHandler(this.buttonMinPWM_Click);
             // 
-            // buttonTorque
+            // buttonCurrent
             // 
-            this.buttonTorque.Location = new System.Drawing.Point(19, 16);
-            this.buttonTorque.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonTorque.Name = "buttonTorque";
-            this.buttonTorque.Size = new System.Drawing.Size(56, 24);
-            this.buttonTorque.TabIndex = 0;
-            this.buttonTorque.Text = "measure";
-            this.buttonTorque.UseVisualStyleBackColor = true;
-            this.buttonTorque.Click += new System.EventHandler(this.buttonTorque_Click);
+            this.buttonCurrent.Location = new System.Drawing.Point(8, 8);
+            this.buttonCurrent.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCurrent.Name = "buttonCurrent";
+            this.buttonCurrent.Size = new System.Drawing.Size(109, 20);
+            this.buttonCurrent.TabIndex = 0;
+            this.buttonCurrent.Text = "PWM - Current";
+            this.buttonCurrent.UseVisualStyleBackColor = true;
+            this.buttonCurrent.Click += new System.EventHandler(this.buttonCurrent_Click);
             // 
             // tabPageBacklash
             // 
@@ -335,6 +377,38 @@ namespace B3MServoChecker
             this.buttonBacklashFree.Text = "Free";
             this.buttonBacklashFree.UseVisualStyleBackColor = true;
             this.buttonBacklashFree.Click += new System.EventHandler(this.buttonBacklashEnd_Click);
+            // 
+            // tabPageVibration
+            // 
+            this.tabPageVibration.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageVibration.Controls.Add(this.buttonVibration);
+            this.tabPageVibration.Controls.Add(this.trackBar1);
+            this.tabPageVibration.Location = new System.Drawing.Point(4, 22);
+            this.tabPageVibration.Name = "tabPageVibration";
+            this.tabPageVibration.Size = new System.Drawing.Size(616, 358);
+            this.tabPageVibration.TabIndex = 5;
+            this.tabPageVibration.Text = "Vibration";
+            // 
+            // buttonVibration
+            // 
+            this.buttonVibration.Location = new System.Drawing.Point(8, 8);
+            this.buttonVibration.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonVibration.Name = "buttonVibration";
+            this.buttonVibration.Size = new System.Drawing.Size(70, 18);
+            this.buttonVibration.TabIndex = 9;
+            this.buttonVibration.Text = "vibration";
+            this.buttonVibration.UseVisualStyleBackColor = true;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(8, 32);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBar1.Maximum = 1000;
+            this.trackBar1.Minimum = 1;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(558, 45);
+            this.trackBar1.TabIndex = 8;
+            this.trackBar1.Value = 1000;
             // 
             // tabPageSetParameter
             // 
@@ -433,6 +507,7 @@ namespace B3MServoChecker
             this.numericUpDownKp.Name = "numericUpDownKp";
             this.numericUpDownKp.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownKp.TabIndex = 11;
+            this.numericUpDownKp.ValueChanged += new System.EventHandler(this.numericUpDownParameter_ValueChanged);
             // 
             // label4
             // 
@@ -461,6 +536,7 @@ namespace B3MServoChecker
             this.numericUpDownKd.Name = "numericUpDownKd";
             this.numericUpDownKd.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownKd.TabIndex = 13;
+            this.numericUpDownKd.ValueChanged += new System.EventHandler(this.numericUpDownParameter_ValueChanged);
             // 
             // label5
             // 
@@ -489,6 +565,7 @@ namespace B3MServoChecker
             this.numericUpDownKi.Name = "numericUpDownKi";
             this.numericUpDownKi.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownKi.TabIndex = 15;
+            this.numericUpDownKi.ValueChanged += new System.EventHandler(this.numericUpDownParameter_ValueChanged);
             // 
             // label6
             // 
@@ -517,6 +594,7 @@ namespace B3MServoChecker
             this.numericUpDownStatic.Name = "numericUpDownStatic";
             this.numericUpDownStatic.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownStatic.TabIndex = 15;
+            this.numericUpDownStatic.ValueChanged += new System.EventHandler(this.numericUpDownParameter_ValueChanged);
             // 
             // label7
             // 
@@ -545,6 +623,7 @@ namespace B3MServoChecker
             this.numericUpDownDynamic.Name = "numericUpDownDynamic";
             this.numericUpDownDynamic.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownDynamic.TabIndex = 18;
+            this.numericUpDownDynamic.ValueChanged += new System.EventHandler(this.numericUpDownParameter_ValueChanged);
             // 
             // label8
             // 
@@ -552,14 +631,14 @@ namespace B3MServoChecker
             this.label8.Location = new System.Drawing.Point(476, 27);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(30, 12);
+            this.label8.Size = new System.Drawing.Size(57, 12);
             this.label8.TabIndex = 19;
-            this.label8.Text = "PWM";
+            this.label8.Text = "PWM Freq";
             // 
             // numericUpDownPWMFrequency
             // 
             this.numericUpDownPWMFrequency.AccessibleRole = System.Windows.Forms.AccessibleRole.Clock;
-            this.numericUpDownPWMFrequency.Location = new System.Drawing.Point(508, 24);
+            this.numericUpDownPWMFrequency.Location = new System.Drawing.Point(536, 24);
             this.numericUpDownPWMFrequency.Maximum = new decimal(new int[] {
             20000,
             0,
@@ -578,10 +657,134 @@ namespace B3MServoChecker
             0,
             0,
             0});
+            this.numericUpDownPWMFrequency.ValueChanged += new System.EventHandler(this.numericUpDownParameter_ValueChanged);
             // 
             // timerPictureBoxAngle
             // 
             this.timerPictureBoxAngle.Tick += new System.EventHandler(this.timerPictureBoxAngle_Tick);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(128, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(129, 12);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Save \"pwm_current.csv\"";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(136, 4);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(138, 12);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Save \"step_response.csv\"";
+            // 
+            // tabPageSpeed
+            // 
+            this.tabPageSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSpeed.Controls.Add(this.label16);
+            this.tabPageSpeed.Controls.Add(this.numericUpDownSpeedFilter);
+            this.tabPageSpeed.Controls.Add(this.progressBarSpeed);
+            this.tabPageSpeed.Controls.Add(this.pictureBoxSpeed);
+            this.tabPageSpeed.Controls.Add(this.label15);
+            this.tabPageSpeed.Controls.Add(this.label14);
+            this.tabPageSpeed.Controls.Add(this.numericUpDownPWMDuty);
+            this.tabPageSpeed.Controls.Add(this.buttonPWMDuty);
+            this.tabPageSpeed.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSpeed.Name = "tabPageSpeed";
+            this.tabPageSpeed.Size = new System.Drawing.Size(616, 358);
+            this.tabPageSpeed.TabIndex = 6;
+            this.tabPageSpeed.Text = "Speed";
+            // 
+            // buttonPWMDuty
+            // 
+            this.buttonPWMDuty.Location = new System.Drawing.Point(256, 8);
+            this.buttonPWMDuty.Name = "buttonPWMDuty";
+            this.buttonPWMDuty.Size = new System.Drawing.Size(104, 20);
+            this.buttonPWMDuty.TabIndex = 0;
+            this.buttonPWMDuty.Text = "Set PWM Duty";
+            this.buttonPWMDuty.UseVisualStyleBackColor = true;
+            this.buttonPWMDuty.Click += new System.EventHandler(this.buttonPWMDuty_Click);
+            // 
+            // numericUpDownPWMDuty
+            // 
+            this.numericUpDownPWMDuty.Location = new System.Drawing.Point(72, 8);
+            this.numericUpDownPWMDuty.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownPWMDuty.Name = "numericUpDownPWMDuty";
+            this.numericUpDownPWMDuty.Size = new System.Drawing.Size(72, 19);
+            this.numericUpDownPWMDuty.TabIndex = 1;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 12);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(58, 12);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "PWM Duty";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(368, 12);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(96, 12);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Save \"speed.csv\"";
+            // 
+            // pictureBoxSpeed
+            // 
+            this.pictureBoxSpeed.BackColor = System.Drawing.Color.White;
+            this.pictureBoxSpeed.Location = new System.Drawing.Point(0, 32);
+            this.pictureBoxSpeed.Name = "pictureBoxSpeed";
+            this.pictureBoxSpeed.Size = new System.Drawing.Size(616, 328);
+            this.pictureBoxSpeed.TabIndex = 4;
+            this.pictureBoxSpeed.TabStop = false;
+            // 
+            // progressBarSpeed
+            // 
+            this.progressBarSpeed.Location = new System.Drawing.Point(464, 8);
+            this.progressBarSpeed.Name = "progressBarSpeed";
+            this.progressBarSpeed.Size = new System.Drawing.Size(144, 20);
+            this.progressBarSpeed.TabIndex = 5;
+            // 
+            // numericUpDownSpeedFilter
+            // 
+            this.numericUpDownSpeedFilter.DecimalPlaces = 3;
+            this.numericUpDownSpeedFilter.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDownSpeedFilter.Location = new System.Drawing.Point(176, 8);
+            this.numericUpDownSpeedFilter.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSpeedFilter.Name = "numericUpDownSpeedFilter";
+            this.numericUpDownSpeedFilter.Size = new System.Drawing.Size(72, 19);
+            this.numericUpDownSpeedFilter.TabIndex = 6;
+            this.numericUpDownSpeedFilter.Value = new decimal(new int[] {
+            95,
+            0,
+            0,
+            131072});
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(152, 12);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(20, 12);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "TC";
             // 
             // FormB3ServoChecker
             // 
@@ -621,12 +824,17 @@ namespace B3MServoChecker
             this.tabBasic.ResumeLayout(false);
             this.tabBasic.PerformLayout();
             this.tabPageStepResp.ResumeLayout(false);
+            this.tabPageStepResp.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabPageTorque.ResumeLayout(false);
             this.tabPageTorque.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPageBacklash.ResumeLayout(false);
             this.tabPageBacklash.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).EndInit();
+            this.tabPageVibration.ResumeLayout(false);
+            this.tabPageVibration.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKd)).EndInit();
@@ -634,6 +842,11 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStatic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDynamic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMFrequency)).EndInit();
+            this.tabPageSpeed.ResumeLayout(false);
+            this.tabPageSpeed.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMDuty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeedFilter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -651,14 +864,12 @@ namespace B3MServoChecker
         private System.Windows.Forms.Button buttonStepResponse;
         private System.Windows.Forms.NumericUpDown numericUpDownID;
         private System.Windows.Forms.TabPage tabPageTorque;
-        private System.Windows.Forms.Button buttonTorque;
+        private System.Windows.Forms.Button buttonCurrent;
         private System.Windows.Forms.Button buttonMinPWM;
         private System.Windows.Forms.TextBox textBoxMinPWM;
         private System.Windows.Forms.Button buttonServoOff;
         private System.Windows.Forms.ComboBox comboBoxBitrate;
         private System.Windows.Forms.ComboBox comboBoxPort;
-        private System.Windows.Forms.Button buttonVibration;
-        private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -684,6 +895,24 @@ namespace B3MServoChecker
         private System.Windows.Forms.Timer timerPictureBoxAngle;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxAngle;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox textBoxTargetAngle;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.TabPage tabPageVibration;
+        private System.Windows.Forms.Button buttonVibration;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TabPage tabPageSpeed;
+        private System.Windows.Forms.PictureBox pictureBoxSpeed;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown numericUpDownPWMDuty;
+        private System.Windows.Forms.Button buttonPWMDuty;
+        private System.Windows.Forms.ProgressBar progressBarSpeed;
+        private System.Windows.Forms.NumericUpDown numericUpDownSpeedFilter;
+        private System.Windows.Forms.Label label16;
     }
 }
 
