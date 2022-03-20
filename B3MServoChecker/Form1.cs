@@ -10,7 +10,6 @@ using System.IO;
 using System.Threading;
 using System.IO.Ports;
 using System.Diagnostics;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace B3MServoChecker
 {
@@ -80,24 +79,6 @@ namespace B3MServoChecker
                 file.WriteLine(string.Format("{0}", angle[i]));
             }
             file.Close();
-            
-            chart1.Series.Clear();  // ← 最初からSeriesが1つあるのでクリアします
-            chart1.ChartAreas.Clear();
-            string chart_area1 = "Area1";
-            chart1.ChartAreas.Add(new ChartArea(chart_area1));
-            string legend1 = "Graph1";
-            chart1.Series.Add(legend1);
-            chart1.Series[legend1].ChartType = SeriesChartType.Line;
-
-            // データを用意します
-            double[] x_values = new double[5] { 0.1, 0.2, 0.3, 0.4, 0.5 };
-            double[] y_values = new double[5] { 1.0, 1.2, 0.8, 1.8, 0.2 };
-
-            // データをシリーズにセットします
-            for (int i = 0; i < y_values.Length; i++)
-            {
-                chart1.Series[legend1].Points.AddXY(x_values[i], y_values[i]);
-            }
         }
 
         B3MServo _b3m;

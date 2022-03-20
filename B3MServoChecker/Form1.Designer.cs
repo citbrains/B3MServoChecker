@@ -30,9 +30,6 @@ namespace B3MServoChecker
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.buttonServoOn = new System.Windows.Forms.Button();
@@ -40,7 +37,6 @@ namespace B3MServoChecker
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabBasic = new System.Windows.Forms.TabPage();
             this.tabPageStepResp = new System.Windows.Forms.TabPage();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonStepResponse = new System.Windows.Forms.Button();
             this.tabPageTorque = new System.Windows.Forms.TabPage();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -49,6 +45,15 @@ namespace B3MServoChecker
             this.buttonMinPWM = new System.Windows.Forms.Button();
             this.buttonTorque = new System.Windows.Forms.Button();
             this.tabPageBacklash = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxAngle = new System.Windows.Forms.TextBox();
+            this.pictureBoxAngle = new System.Windows.Forms.PictureBox();
+            this.progressBarBacklash = new System.Windows.Forms.ProgressBar();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxBacklash = new System.Windows.Forms.TextBox();
+            this.buttonBacklash = new System.Windows.Forms.Button();
+            this.buttonBacklashFree = new System.Windows.Forms.Button();
+            this.tabPageSetParameter = new System.Windows.Forms.TabPage();
             this.numericUpDownID = new System.Windows.Forms.NumericUpDown();
             this.buttonServoOff = new System.Windows.Forms.Button();
             this.comboBoxBitrate = new System.Windows.Forms.ComboBox();
@@ -67,24 +72,15 @@ namespace B3MServoChecker
             this.numericUpDownDynamic = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownPWMFrequency = new System.Windows.Forms.NumericUpDown();
-            this.buttonBacklashFree = new System.Windows.Forms.Button();
-            this.buttonBacklash = new System.Windows.Forms.Button();
-            this.textBoxBacklash = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tabPageSetParameter = new System.Windows.Forms.TabPage();
-            this.progressBarBacklash = new System.Windows.Forms.ProgressBar();
-            this.pictureBoxAngle = new System.Windows.Forms.PictureBox();
             this.timerPictureBoxAngle = new System.Windows.Forms.Timer(this.components);
-            this.textBoxAngle = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
             this.tabPageStepResp.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPageTorque.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tabPageBacklash.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKd)).BeginInit();
@@ -92,7 +88,6 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStatic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDynamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMFrequency)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -164,7 +159,6 @@ namespace B3MServoChecker
             // tabPageStepResp
             // 
             this.tabPageStepResp.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageStepResp.Controls.Add(this.chart1);
             this.tabPageStepResp.Controls.Add(this.buttonStepResponse);
             this.tabPageStepResp.Location = new System.Drawing.Point(4, 22);
             this.tabPageStepResp.Margin = new System.Windows.Forms.Padding(2);
@@ -173,25 +167,6 @@ namespace B3MServoChecker
             this.tabPageStepResp.Size = new System.Drawing.Size(616, 358);
             this.tabPageStepResp.TabIndex = 1;
             this.tabPageStepResp.Text = "Step Resp.";
-            // 
-            // chart1
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 32);
-            this.chart1.Margin = new System.Windows.Forms.Padding(2);
-            this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.IsVisibleInLegend = false;
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(616, 328);
-            this.chart1.TabIndex = 1;
-            this.chart1.Text = "chart1";
             // 
             // buttonStepResponse
             // 
@@ -289,6 +264,87 @@ namespace B3MServoChecker
             this.tabPageBacklash.TabIndex = 3;
             this.tabPageBacklash.Text = "Backlash";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(120, 260);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(23, 12);
+            this.label10.TabIndex = 10;
+            this.label10.Text = "deg";
+            // 
+            // textBoxAngle
+            // 
+            this.textBoxAngle.Location = new System.Drawing.Point(8, 256);
+            this.textBoxAngle.Name = "textBoxAngle";
+            this.textBoxAngle.Size = new System.Drawing.Size(104, 19);
+            this.textBoxAngle.TabIndex = 9;
+            // 
+            // pictureBoxAngle
+            // 
+            this.pictureBoxAngle.BackColor = System.Drawing.Color.White;
+            this.pictureBoxAngle.Location = new System.Drawing.Point(8, 96);
+            this.pictureBoxAngle.Name = "pictureBoxAngle";
+            this.pictureBoxAngle.Size = new System.Drawing.Size(152, 152);
+            this.pictureBoxAngle.TabIndex = 8;
+            this.pictureBoxAngle.TabStop = false;
+            this.pictureBoxAngle.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxAngle_Paint);
+            // 
+            // progressBarBacklash
+            // 
+            this.progressBarBacklash.Location = new System.Drawing.Point(8, 64);
+            this.progressBarBacklash.Name = "progressBarBacklash";
+            this.progressBarBacklash.Size = new System.Drawing.Size(152, 16);
+            this.progressBarBacklash.TabIndex = 7;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(120, 36);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(23, 12);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "deg";
+            // 
+            // textBoxBacklash
+            // 
+            this.textBoxBacklash.Location = new System.Drawing.Point(8, 32);
+            this.textBoxBacklash.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxBacklash.Name = "textBoxBacklash";
+            this.textBoxBacklash.Size = new System.Drawing.Size(104, 19);
+            this.textBoxBacklash.TabIndex = 5;
+            // 
+            // buttonBacklash
+            // 
+            this.buttonBacklash.Location = new System.Drawing.Point(8, 8);
+            this.buttonBacklash.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonBacklash.Name = "buttonBacklash";
+            this.buttonBacklash.Size = new System.Drawing.Size(72, 20);
+            this.buttonBacklash.TabIndex = 4;
+            this.buttonBacklash.Text = "Backlash";
+            this.buttonBacklash.UseVisualStyleBackColor = true;
+            this.buttonBacklash.Click += new System.EventHandler(this.buttonBacklashStart_Click);
+            // 
+            // buttonBacklashFree
+            // 
+            this.buttonBacklashFree.Location = new System.Drawing.Point(88, 8);
+            this.buttonBacklashFree.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonBacklashFree.Name = "buttonBacklashFree";
+            this.buttonBacklashFree.Size = new System.Drawing.Size(72, 20);
+            this.buttonBacklashFree.TabIndex = 3;
+            this.buttonBacklashFree.Text = "Free";
+            this.buttonBacklashFree.UseVisualStyleBackColor = true;
+            this.buttonBacklashFree.Click += new System.EventHandler(this.buttonBacklashEnd_Click);
+            // 
+            // tabPageSetParameter
+            // 
+            this.tabPageSetParameter.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSetParameter.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSetParameter.Name = "tabPageSetParameter";
+            this.tabPageSetParameter.Size = new System.Drawing.Size(616, 358);
+            this.tabPageSetParameter.TabIndex = 4;
+            this.tabPageSetParameter.Text = "SetParameter";
+            // 
             // numericUpDownID
             // 
             this.numericUpDownID.Location = new System.Drawing.Point(224, 0);
@@ -296,7 +352,6 @@ namespace B3MServoChecker
             this.numericUpDownID.Name = "numericUpDownID";
             this.numericUpDownID.Size = new System.Drawing.Size(48, 19);
             this.numericUpDownID.TabIndex = 5;
-            this.numericUpDownID.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.toolTip1.SetToolTip(this.numericUpDownID, "Select Servo ID");
             // 
             // buttonServoOff
@@ -378,7 +433,6 @@ namespace B3MServoChecker
             this.numericUpDownKp.Name = "numericUpDownKp";
             this.numericUpDownKp.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownKp.TabIndex = 11;
-            this.numericUpDownKp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label4
             // 
@@ -407,7 +461,6 @@ namespace B3MServoChecker
             this.numericUpDownKd.Name = "numericUpDownKd";
             this.numericUpDownKd.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownKd.TabIndex = 13;
-            this.numericUpDownKd.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label5
             // 
@@ -436,7 +489,6 @@ namespace B3MServoChecker
             this.numericUpDownKi.Name = "numericUpDownKi";
             this.numericUpDownKi.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownKi.TabIndex = 15;
-            this.numericUpDownKi.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label6
             // 
@@ -465,7 +517,6 @@ namespace B3MServoChecker
             this.numericUpDownStatic.Name = "numericUpDownStatic";
             this.numericUpDownStatic.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownStatic.TabIndex = 15;
-            this.numericUpDownStatic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label7
             // 
@@ -494,7 +545,6 @@ namespace B3MServoChecker
             this.numericUpDownDynamic.Name = "numericUpDownDynamic";
             this.numericUpDownDynamic.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownDynamic.TabIndex = 18;
-            this.numericUpDownDynamic.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label8
             // 
@@ -523,97 +573,15 @@ namespace B3MServoChecker
             this.numericUpDownPWMFrequency.Name = "numericUpDownPWMFrequency";
             this.numericUpDownPWMFrequency.Size = new System.Drawing.Size(56, 19);
             this.numericUpDownPWMFrequency.TabIndex = 20;
-            this.numericUpDownPWMFrequency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDownPWMFrequency.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
             // 
-            // buttonBacklashFree
-            // 
-            this.buttonBacklashFree.Location = new System.Drawing.Point(88, 8);
-            this.buttonBacklashFree.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonBacklashFree.Name = "buttonBacklashFree";
-            this.buttonBacklashFree.Size = new System.Drawing.Size(72, 20);
-            this.buttonBacklashFree.TabIndex = 3;
-            this.buttonBacklashFree.Text = "Free";
-            this.buttonBacklashFree.UseVisualStyleBackColor = true;
-            this.buttonBacklashFree.Click += new System.EventHandler(this.buttonBacklashEnd_Click);
-            // 
-            // buttonBacklash
-            // 
-            this.buttonBacklash.Location = new System.Drawing.Point(8, 8);
-            this.buttonBacklash.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonBacklash.Name = "buttonBacklash";
-            this.buttonBacklash.Size = new System.Drawing.Size(72, 20);
-            this.buttonBacklash.TabIndex = 4;
-            this.buttonBacklash.Text = "Backlash";
-            this.buttonBacklash.UseVisualStyleBackColor = true;
-            this.buttonBacklash.Click += new System.EventHandler(this.buttonBacklashStart_Click);
-            // 
-            // textBoxBacklash
-            // 
-            this.textBoxBacklash.Location = new System.Drawing.Point(8, 32);
-            this.textBoxBacklash.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxBacklash.Name = "textBoxBacklash";
-            this.textBoxBacklash.Size = new System.Drawing.Size(104, 19);
-            this.textBoxBacklash.TabIndex = 5;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(120, 36);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(23, 12);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "deg";
-            // 
-            // tabPageSetParameter
-            // 
-            this.tabPageSetParameter.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageSetParameter.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSetParameter.Name = "tabPageSetParameter";
-            this.tabPageSetParameter.Size = new System.Drawing.Size(616, 358);
-            this.tabPageSetParameter.TabIndex = 4;
-            this.tabPageSetParameter.Text = "SetParameter";
-            // 
-            // progressBarBacklash
-            // 
-            this.progressBarBacklash.Location = new System.Drawing.Point(8, 64);
-            this.progressBarBacklash.Name = "progressBarBacklash";
-            this.progressBarBacklash.Size = new System.Drawing.Size(152, 16);
-            this.progressBarBacklash.TabIndex = 7;
-            // 
-            // pictureBoxAngle
-            // 
-            this.pictureBoxAngle.BackColor = System.Drawing.Color.White;
-            this.pictureBoxAngle.Location = new System.Drawing.Point(8, 96);
-            this.pictureBoxAngle.Name = "pictureBoxAngle";
-            this.pictureBoxAngle.Size = new System.Drawing.Size(152, 152);
-            this.pictureBoxAngle.TabIndex = 8;
-            this.pictureBoxAngle.TabStop = false;
-            this.pictureBoxAngle.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxAngle_Paint);
-            // 
             // timerPictureBoxAngle
             // 
             this.timerPictureBoxAngle.Tick += new System.EventHandler(this.timerPictureBoxAngle_Tick);
-            // 
-            // textBoxAngle
-            // 
-            this.textBoxAngle.Location = new System.Drawing.Point(8, 256);
-            this.textBoxAngle.Name = "textBoxAngle";
-            this.textBoxAngle.Size = new System.Drawing.Size(104, 19);
-            this.textBoxAngle.TabIndex = 9;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(120, 260);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(23, 12);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "deg";
             // 
             // FormB3ServoChecker
             // 
@@ -653,12 +621,12 @@ namespace B3MServoChecker
             this.tabBasic.ResumeLayout(false);
             this.tabBasic.PerformLayout();
             this.tabPageStepResp.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPageTorque.ResumeLayout(false);
             this.tabPageTorque.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tabPageBacklash.ResumeLayout(false);
             this.tabPageBacklash.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKd)).EndInit();
@@ -666,7 +634,6 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStatic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDynamic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMFrequency)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -683,7 +650,6 @@ namespace B3MServoChecker
         private System.Windows.Forms.TabPage tabPageStepResp;
         private System.Windows.Forms.Button buttonStepResponse;
         private System.Windows.Forms.NumericUpDown numericUpDownID;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.TabPage tabPageTorque;
         private System.Windows.Forms.Button buttonTorque;
         private System.Windows.Forms.Button buttonMinPWM;
