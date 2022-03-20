@@ -371,6 +371,7 @@ namespace B3MServoChecker
                 _b3m.setDataByte(id, B3MLib.B3MLib.CONTROL_GAIN_PRESET, 0);
                 _b3m.saveROM(id);
                 readParameters();
+                textBoxSetParameterResult.Text = "Success";
             }
             else if (motor_type == 'C' && torque_type == 4)
             {
@@ -401,6 +402,7 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
                 _b3m.saveROM(id);
                 readParameters();
+                textBoxSetParameterResult.Text = "Success";
             }
             else if (motor_type == 'C' && torque_type == 7)
             {
@@ -431,10 +433,12 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
                 _b3m.saveROM(id);
                 readParameters();
+                textBoxSetParameterResult.Text = "Success";
             }
             else
             {
-                textBoxServoType.Text = "ERROR";
+                textBoxServoType.Text = "Not found";
+                textBoxSetParameterResult.Text = "Failure";
             }
         }
     }
