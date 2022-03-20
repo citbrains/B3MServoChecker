@@ -70,6 +70,8 @@ namespace B3MServoChecker
             this.buttonVibration = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tabPageSetParameter = new System.Windows.Forms.TabPage();
+            this.textBoxServoType = new System.Windows.Forms.TextBox();
+            this.buttonSetParameters = new System.Windows.Forms.Button();
             this.numericUpDownID = new System.Windows.Forms.NumericUpDown();
             this.buttonServoOff = new System.Windows.Forms.Button();
             this.comboBoxBitrate = new System.Windows.Forms.ComboBox();
@@ -89,8 +91,6 @@ namespace B3MServoChecker
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownPWMFrequency = new System.Windows.Forms.NumericUpDown();
             this.timerPictureBoxAngle = new System.Windows.Forms.Timer(this.components);
-            this.buttonSetParameters = new System.Windows.Forms.Button();
-            this.textBoxServoType = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
@@ -119,7 +119,7 @@ namespace B3MServoChecker
             // serialPort1
             // 
             this.serialPort1.BaudRate = 1000000;
-            this.serialPort1.ReadTimeout = 500;
+            this.serialPort1.ReadTimeout = 50;
             // 
             // label1
             // 
@@ -134,7 +134,7 @@ namespace B3MServoChecker
             // buttonServoOn
             // 
             this.buttonServoOn.Location = new System.Drawing.Point(280, 0);
-            this.buttonServoOn.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonServoOn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonServoOn.Name = "buttonServoOn";
             this.buttonServoOn.Size = new System.Drawing.Size(72, 20);
             this.buttonServoOn.TabIndex = 2;
@@ -147,7 +147,7 @@ namespace B3MServoChecker
             // 
             this.trackBarPos.LargeChange = 10;
             this.trackBarPos.Location = new System.Drawing.Point(4, 32);
-            this.trackBarPos.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBarPos.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trackBarPos.Maximum = 320;
             this.trackBarPos.Minimum = -320;
             this.trackBarPos.Name = "trackBarPos";
@@ -166,7 +166,7 @@ namespace B3MServoChecker
             this.tabControl1.Controls.Add(this.tabPageVibration);
             this.tabControl1.Controls.Add(this.tabPageSetParameter);
             this.tabControl1.Location = new System.Drawing.Point(0, 56);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(624, 384);
@@ -180,9 +180,9 @@ namespace B3MServoChecker
             this.tabBasic.Controls.Add(this.label11);
             this.tabBasic.Controls.Add(this.trackBarPos);
             this.tabBasic.Location = new System.Drawing.Point(4, 22);
-            this.tabBasic.Margin = new System.Windows.Forms.Padding(2);
+            this.tabBasic.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabBasic.Name = "tabBasic";
-            this.tabBasic.Padding = new System.Windows.Forms.Padding(2);
+            this.tabBasic.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabBasic.Size = new System.Drawing.Size(616, 358);
             this.tabBasic.TabIndex = 0;
             this.tabBasic.Text = "Basic";
@@ -211,9 +211,9 @@ namespace B3MServoChecker
             this.tabPageStepResp.Controls.Add(this.pictureBox1);
             this.tabPageStepResp.Controls.Add(this.buttonStepResponse);
             this.tabPageStepResp.Location = new System.Drawing.Point(4, 22);
-            this.tabPageStepResp.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageStepResp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPageStepResp.Name = "tabPageStepResp";
-            this.tabPageStepResp.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPageStepResp.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPageStepResp.Size = new System.Drawing.Size(616, 358);
             this.tabPageStepResp.TabIndex = 1;
             this.tabPageStepResp.Text = "Step Resp.";
@@ -239,7 +239,7 @@ namespace B3MServoChecker
             // buttonStepResponse
             // 
             this.buttonStepResponse.Location = new System.Drawing.Point(8, 0);
-            this.buttonStepResponse.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonStepResponse.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonStepResponse.Name = "buttonStepResponse";
             this.buttonStepResponse.Size = new System.Drawing.Size(120, 20);
             this.buttonStepResponse.TabIndex = 0;
@@ -256,7 +256,7 @@ namespace B3MServoChecker
             this.tabPageTorque.Controls.Add(this.buttonMinPWM);
             this.tabPageTorque.Controls.Add(this.buttonCurrent);
             this.tabPageTorque.Location = new System.Drawing.Point(4, 22);
-            this.tabPageTorque.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPageTorque.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.tabPageTorque.Name = "tabPageTorque";
             this.tabPageTorque.Size = new System.Drawing.Size(616, 358);
             this.tabPageTorque.TabIndex = 2;
@@ -283,7 +283,7 @@ namespace B3MServoChecker
             // textBoxMinPWM
             // 
             this.textBoxMinPWM.Location = new System.Drawing.Point(456, 32);
-            this.textBoxMinPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxMinPWM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxMinPWM.Name = "textBoxMinPWM";
             this.textBoxMinPWM.Size = new System.Drawing.Size(131, 19);
             this.textBoxMinPWM.TabIndex = 5;
@@ -291,7 +291,7 @@ namespace B3MServoChecker
             // buttonMinPWM
             // 
             this.buttonMinPWM.Location = new System.Drawing.Point(456, 8);
-            this.buttonMinPWM.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonMinPWM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonMinPWM.Name = "buttonMinPWM";
             this.buttonMinPWM.Size = new System.Drawing.Size(128, 20);
             this.buttonMinPWM.TabIndex = 4;
@@ -302,7 +302,7 @@ namespace B3MServoChecker
             // buttonCurrent
             // 
             this.buttonCurrent.Location = new System.Drawing.Point(8, 8);
-            this.buttonCurrent.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonCurrent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonCurrent.Name = "buttonCurrent";
             this.buttonCurrent.Size = new System.Drawing.Size(109, 20);
             this.buttonCurrent.TabIndex = 0;
@@ -477,7 +477,7 @@ namespace B3MServoChecker
             // textBoxBacklash
             // 
             this.textBoxBacklash.Location = new System.Drawing.Point(8, 32);
-            this.textBoxBacklash.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxBacklash.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textBoxBacklash.Name = "textBoxBacklash";
             this.textBoxBacklash.Size = new System.Drawing.Size(104, 19);
             this.textBoxBacklash.TabIndex = 5;
@@ -485,7 +485,7 @@ namespace B3MServoChecker
             // buttonBacklash
             // 
             this.buttonBacklash.Location = new System.Drawing.Point(8, 8);
-            this.buttonBacklash.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonBacklash.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonBacklash.Name = "buttonBacklash";
             this.buttonBacklash.Size = new System.Drawing.Size(72, 20);
             this.buttonBacklash.TabIndex = 4;
@@ -496,7 +496,7 @@ namespace B3MServoChecker
             // buttonBacklashFree
             // 
             this.buttonBacklashFree.Location = new System.Drawing.Point(88, 8);
-            this.buttonBacklashFree.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonBacklashFree.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonBacklashFree.Name = "buttonBacklashFree";
             this.buttonBacklashFree.Size = new System.Drawing.Size(72, 20);
             this.buttonBacklashFree.TabIndex = 3;
@@ -518,7 +518,7 @@ namespace B3MServoChecker
             // buttonVibration
             // 
             this.buttonVibration.Location = new System.Drawing.Point(8, 8);
-            this.buttonVibration.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonVibration.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonVibration.Name = "buttonVibration";
             this.buttonVibration.Size = new System.Drawing.Size(70, 18);
             this.buttonVibration.TabIndex = 9;
@@ -528,7 +528,7 @@ namespace B3MServoChecker
             // trackBar1
             // 
             this.trackBar1.Location = new System.Drawing.Point(8, 32);
-            this.trackBar1.Margin = new System.Windows.Forms.Padding(2);
+            this.trackBar1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.trackBar1.Maximum = 1000;
             this.trackBar1.Minimum = 1;
             this.trackBar1.Name = "trackBar1";
@@ -547,10 +547,32 @@ namespace B3MServoChecker
             this.tabPageSetParameter.TabIndex = 4;
             this.tabPageSetParameter.Text = "SetParameter";
             // 
+            // textBoxServoType
+            // 
+            this.textBoxServoType.Location = new System.Drawing.Point(128, 8);
+            this.textBoxServoType.Name = "textBoxServoType";
+            this.textBoxServoType.Size = new System.Drawing.Size(120, 19);
+            this.textBoxServoType.TabIndex = 1;
+            // 
+            // buttonSetParameters
+            // 
+            this.buttonSetParameters.Location = new System.Drawing.Point(8, 8);
+            this.buttonSetParameters.Name = "buttonSetParameters";
+            this.buttonSetParameters.Size = new System.Drawing.Size(112, 23);
+            this.buttonSetParameters.TabIndex = 0;
+            this.buttonSetParameters.Text = "Set Parameters";
+            this.buttonSetParameters.UseVisualStyleBackColor = true;
+            this.buttonSetParameters.Click += new System.EventHandler(this.buttonSetParameters_Click);
+            // 
             // numericUpDownID
             // 
             this.numericUpDownID.Location = new System.Drawing.Point(224, 0);
-            this.numericUpDownID.Margin = new System.Windows.Forms.Padding(2);
+            this.numericUpDownID.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericUpDownID.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             this.numericUpDownID.Name = "numericUpDownID";
             this.numericUpDownID.Size = new System.Drawing.Size(48, 19);
             this.numericUpDownID.TabIndex = 5;
@@ -559,7 +581,7 @@ namespace B3MServoChecker
             // buttonServoOff
             // 
             this.buttonServoOff.Location = new System.Drawing.Point(360, 0);
-            this.buttonServoOff.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonServoOff.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonServoOff.Name = "buttonServoOff";
             this.buttonServoOff.Size = new System.Drawing.Size(72, 20);
             this.buttonServoOff.TabIndex = 6;
@@ -579,7 +601,7 @@ namespace B3MServoChecker
             "2000000",
             "3000000"});
             this.comboBoxBitrate.Location = new System.Drawing.Point(128, 0);
-            this.comboBoxBitrate.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxBitrate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxBitrate.Name = "comboBoxBitrate";
             this.comboBoxBitrate.Size = new System.Drawing.Size(72, 20);
             this.comboBoxBitrate.TabIndex = 7;
@@ -591,7 +613,7 @@ namespace B3MServoChecker
             // 
             this.comboBoxPort.FormattingEnabled = true;
             this.comboBoxPort.Location = new System.Drawing.Point(40, 0);
-            this.comboBoxPort.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBoxPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.comboBoxPort.Name = "comboBoxPort";
             this.comboBoxPort.Size = new System.Drawing.Size(80, 20);
             this.comboBoxPort.TabIndex = 8;
@@ -791,23 +813,6 @@ namespace B3MServoChecker
             // 
             this.timerPictureBoxAngle.Tick += new System.EventHandler(this.timerPictureBoxAngle_Tick);
             // 
-            // buttonSetParameters
-            // 
-            this.buttonSetParameters.Location = new System.Drawing.Point(8, 8);
-            this.buttonSetParameters.Name = "buttonSetParameters";
-            this.buttonSetParameters.Size = new System.Drawing.Size(112, 23);
-            this.buttonSetParameters.TabIndex = 0;
-            this.buttonSetParameters.Text = "Set Parameters";
-            this.buttonSetParameters.UseVisualStyleBackColor = true;
-            this.buttonSetParameters.Click += new System.EventHandler(this.buttonSetParameters_Click);
-            // 
-            // textBoxServoType
-            // 
-            this.textBoxServoType.Location = new System.Drawing.Point(128, 8);
-            this.textBoxServoType.Name = "textBoxServoType";
-            this.textBoxServoType.Size = new System.Drawing.Size(120, 19);
-            this.textBoxServoType.TabIndex = 1;
-            // 
             // FormB3ServoChecker
             // 
             this.AllowDrop = true;
@@ -834,7 +839,7 @@ namespace B3MServoChecker
             this.Controls.Add(this.numericUpDownID);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormB3ServoChecker";

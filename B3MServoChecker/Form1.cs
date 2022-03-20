@@ -155,18 +155,36 @@ namespace B3MServoChecker
 
         private void comboBoxPort_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bool find_ID = true;
             serialPort1.Close();
             serialPort1.PortName = comboBoxPort.Text;
             try
             {
                 serialPort1.Open();
-                readParameters();
-                is_all_parameters_set = true;
             }
             catch
             {
                 MessageBox.Show("COMが開けません！！");
                 serialPort1.Close();
+                return;
+            }
+            if (!_b3m.servoOff((byte)numericUpDownID.Value))
+            {
+                find_ID = false;
+                for(int i = 0;i < 30; i++)
+                {
+                    numericUpDownID.Value = i;
+                    if (_b3m.servoOff((byte)i)) 
+                    {
+                        find_ID = true;
+                        break;
+                    }
+                }
+            }
+            if (find_ID)
+            {
+                readParameters();
+                is_all_parameters_set = true;
             }
         }
 
@@ -174,17 +192,6 @@ namespace B3MServoChecker
         {
             serialPort1.Close();
             serialPort1.BaudRate = Int32.Parse(comboBoxBitrate.Text);
-            try
-            {
-                serialPort1.Open();
-                readParameters();
-                is_all_parameters_set = true;
-            }
-            catch
-            {
-                MessageBox.Show("COMが開けません！！");
-                serialPort1.Close();
-            }
         }
 
         private void buttonMinPWM_Click(object sender, EventArgs e)
@@ -354,7 +361,13 @@ namespace B3MServoChecker
             {
                 textBoxServoType.Text = "B3M-SB-1040-A";
                 // save parameters
+                _b3m.setDataLong(id, B3MLib.B3MLib.SYSTEM_BAUDRATE, 1000000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, -32000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, 32000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
+                _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
                 _b3m.setDataByte(id, B3MLib.B3MLib.CONTROL_GAIN_PRESET, 0);
                 _b3m.saveROM(id);
                 readParameters();
@@ -363,6 +376,10 @@ namespace B3MServoChecker
             {
                 textBoxServoType.Text = "B3M-SC-1040-A";
                 // save parameters
+                _b3m.setDataLong(id, B3MLib.B3MLib.SYSTEM_BAUDRATE, 1000000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, -32000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, 32000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
                 _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
@@ -389,6 +406,10 @@ namespace B3MServoChecker
             {
                 textBoxServoType.Text = "B3M-SC-1170-A";
                 // save parameters
+                _b3m.setDataLong(id, B3MLib.B3MLib.SYSTEM_BAUDRATE, 1000000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, -32000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, 32000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
                 _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);

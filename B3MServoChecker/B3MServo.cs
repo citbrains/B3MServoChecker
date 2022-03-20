@@ -248,7 +248,7 @@ namespace B3MServoChecker
         {
             ByteList cmd = new ByteList();
             byte[] rx = new byte[5];
-            byte[] value_bytes = BitConverter.GetBytes(value);
+            byte[] value_bytes = BitConverter.GetBytes((ushort)value);
 
             cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, address, servoID, value_bytes);
             B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
