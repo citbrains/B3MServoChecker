@@ -36,3 +36,15 @@ mono
 How to measure backlash  
 
 [![IMAGE](http://img.youtube.com/vi/nS0xw7NbkSw/0.jpg)](https://youtu.be/nS0xw7NbkSw)
+
+### Angular velocity (for checking gear)
+
+How to measure angular velocity
+
+[![IMAGE](http://img.youtube.com/vi/BwX0PWRZGwU/0.jpg)](https://youtu.be/BwX0PWRZGwU)
+
+### Write and save the parameters
+
+How to write and save parameters
+
+[![IMAGE](http://img.youtube.com/vi/50FzWhF5oys/0.jpg)](https://youtu.be/50FzWhF5oys)
