@@ -39,13 +39,24 @@ namespace B3MServoChecker
             this.textBoxTargetAngle = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPageStepResp = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonStepResponse = new System.Windows.Forms.Button();
             this.tabPageTorque = new System.Windows.Forms.TabPage();
+            this.label12 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.textBoxMinPWM = new System.Windows.Forms.TextBox();
             this.buttonMinPWM = new System.Windows.Forms.Button();
             this.buttonCurrent = new System.Windows.Forms.Button();
+            this.tabPageSpeed = new System.Windows.Forms.TabPage();
+            this.label16 = new System.Windows.Forms.Label();
+            this.numericUpDownSpeedFilter = new System.Windows.Forms.NumericUpDown();
+            this.progressBarSpeed = new System.Windows.Forms.ProgressBar();
+            this.pictureBoxSpeed = new System.Windows.Forms.PictureBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.numericUpDownPWMDuty = new System.Windows.Forms.NumericUpDown();
+            this.buttonPWMDuty = new System.Windows.Forms.Button();
             this.tabPageBacklash = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxAngle = new System.Windows.Forms.TextBox();
@@ -78,17 +89,8 @@ namespace B3MServoChecker
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownPWMFrequency = new System.Windows.Forms.NumericUpDown();
             this.timerPictureBoxAngle = new System.Windows.Forms.Timer(this.components);
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.tabPageSpeed = new System.Windows.Forms.TabPage();
-            this.buttonPWMDuty = new System.Windows.Forms.Button();
-            this.numericUpDownPWMDuty = new System.Windows.Forms.NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.pictureBoxSpeed = new System.Windows.Forms.PictureBox();
-            this.progressBarSpeed = new System.Windows.Forms.ProgressBar();
-            this.numericUpDownSpeedFilter = new System.Windows.Forms.NumericUpDown();
-            this.label16 = new System.Windows.Forms.Label();
+            this.buttonSetParameters = new System.Windows.Forms.Button();
+            this.textBoxServoType = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
@@ -96,10 +98,15 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabPageTorque.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.tabPageSpeed.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeedFilter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMDuty)).BeginInit();
             this.tabPageBacklash.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).BeginInit();
             this.tabPageVibration.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            this.tabPageSetParameter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownID)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKd)).BeginInit();
@@ -107,10 +114,6 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStatic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDynamic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMFrequency)).BeginInit();
-            this.tabPageSpeed.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMDuty)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeedFilter)).BeginInit();
             this.SuspendLayout();
             // 
             // serialPort1
@@ -215,6 +218,15 @@ namespace B3MServoChecker
             this.tabPageStepResp.TabIndex = 1;
             this.tabPageStepResp.Text = "Step Resp.";
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(136, 4);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(138, 12);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "Save \"step_response.csv\"";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
@@ -249,6 +261,15 @@ namespace B3MServoChecker
             this.tabPageTorque.Size = new System.Drawing.Size(616, 358);
             this.tabPageTorque.TabIndex = 2;
             this.tabPageTorque.Text = "Torque";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(128, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(129, 12);
+            this.label12.TabIndex = 9;
+            this.label12.Text = "Save \"pwm_current.csv\"";
             // 
             // pictureBox2
             // 
@@ -288,6 +309,111 @@ namespace B3MServoChecker
             this.buttonCurrent.Text = "PWM - Current";
             this.buttonCurrent.UseVisualStyleBackColor = true;
             this.buttonCurrent.Click += new System.EventHandler(this.buttonCurrent_Click);
+            // 
+            // tabPageSpeed
+            // 
+            this.tabPageSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSpeed.Controls.Add(this.label16);
+            this.tabPageSpeed.Controls.Add(this.numericUpDownSpeedFilter);
+            this.tabPageSpeed.Controls.Add(this.progressBarSpeed);
+            this.tabPageSpeed.Controls.Add(this.pictureBoxSpeed);
+            this.tabPageSpeed.Controls.Add(this.label15);
+            this.tabPageSpeed.Controls.Add(this.label14);
+            this.tabPageSpeed.Controls.Add(this.numericUpDownPWMDuty);
+            this.tabPageSpeed.Controls.Add(this.buttonPWMDuty);
+            this.tabPageSpeed.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSpeed.Name = "tabPageSpeed";
+            this.tabPageSpeed.Size = new System.Drawing.Size(616, 358);
+            this.tabPageSpeed.TabIndex = 6;
+            this.tabPageSpeed.Text = "Speed";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(152, 12);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(20, 12);
+            this.label16.TabIndex = 7;
+            this.label16.Text = "TC";
+            // 
+            // numericUpDownSpeedFilter
+            // 
+            this.numericUpDownSpeedFilter.DecimalPlaces = 3;
+            this.numericUpDownSpeedFilter.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            196608});
+            this.numericUpDownSpeedFilter.Location = new System.Drawing.Point(176, 8);
+            this.numericUpDownSpeedFilter.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownSpeedFilter.Name = "numericUpDownSpeedFilter";
+            this.numericUpDownSpeedFilter.Size = new System.Drawing.Size(72, 19);
+            this.numericUpDownSpeedFilter.TabIndex = 6;
+            this.numericUpDownSpeedFilter.Value = new decimal(new int[] {
+            95,
+            0,
+            0,
+            131072});
+            // 
+            // progressBarSpeed
+            // 
+            this.progressBarSpeed.Location = new System.Drawing.Point(464, 8);
+            this.progressBarSpeed.Name = "progressBarSpeed";
+            this.progressBarSpeed.Size = new System.Drawing.Size(144, 20);
+            this.progressBarSpeed.TabIndex = 5;
+            // 
+            // pictureBoxSpeed
+            // 
+            this.pictureBoxSpeed.BackColor = System.Drawing.Color.White;
+            this.pictureBoxSpeed.Location = new System.Drawing.Point(0, 32);
+            this.pictureBoxSpeed.Name = "pictureBoxSpeed";
+            this.pictureBoxSpeed.Size = new System.Drawing.Size(616, 328);
+            this.pictureBoxSpeed.TabIndex = 4;
+            this.pictureBoxSpeed.TabStop = false;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(368, 12);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(96, 12);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Save \"speed.csv\"";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 12);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(58, 12);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "PWM Duty";
+            // 
+            // numericUpDownPWMDuty
+            // 
+            this.numericUpDownPWMDuty.Location = new System.Drawing.Point(72, 8);
+            this.numericUpDownPWMDuty.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownPWMDuty.Name = "numericUpDownPWMDuty";
+            this.numericUpDownPWMDuty.Size = new System.Drawing.Size(72, 19);
+            this.numericUpDownPWMDuty.TabIndex = 1;
+            // 
+            // buttonPWMDuty
+            // 
+            this.buttonPWMDuty.Location = new System.Drawing.Point(256, 8);
+            this.buttonPWMDuty.Name = "buttonPWMDuty";
+            this.buttonPWMDuty.Size = new System.Drawing.Size(104, 20);
+            this.buttonPWMDuty.TabIndex = 0;
+            this.buttonPWMDuty.Text = "Set PWM Duty";
+            this.buttonPWMDuty.UseVisualStyleBackColor = true;
+            this.buttonPWMDuty.Click += new System.EventHandler(this.buttonPWMDuty_Click);
             // 
             // tabPageBacklash
             // 
@@ -413,6 +539,8 @@ namespace B3MServoChecker
             // tabPageSetParameter
             // 
             this.tabPageSetParameter.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSetParameter.Controls.Add(this.textBoxServoType);
+            this.tabPageSetParameter.Controls.Add(this.buttonSetParameters);
             this.tabPageSetParameter.Location = new System.Drawing.Point(4, 22);
             this.tabPageSetParameter.Name = "tabPageSetParameter";
             this.tabPageSetParameter.Size = new System.Drawing.Size(616, 358);
@@ -663,128 +791,22 @@ namespace B3MServoChecker
             // 
             this.timerPictureBoxAngle.Tick += new System.EventHandler(this.timerPictureBoxAngle_Tick);
             // 
-            // label12
+            // buttonSetParameters
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(128, 12);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(129, 12);
-            this.label12.TabIndex = 9;
-            this.label12.Text = "Save \"pwm_current.csv\"";
+            this.buttonSetParameters.Location = new System.Drawing.Point(8, 8);
+            this.buttonSetParameters.Name = "buttonSetParameters";
+            this.buttonSetParameters.Size = new System.Drawing.Size(112, 23);
+            this.buttonSetParameters.TabIndex = 0;
+            this.buttonSetParameters.Text = "Set Parameters";
+            this.buttonSetParameters.UseVisualStyleBackColor = true;
+            this.buttonSetParameters.Click += new System.EventHandler(this.buttonSetParameters_Click);
             // 
-            // label13
+            // textBoxServoType
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(136, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(138, 12);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "Save \"step_response.csv\"";
-            // 
-            // tabPageSpeed
-            // 
-            this.tabPageSpeed.BackColor = System.Drawing.Color.Transparent;
-            this.tabPageSpeed.Controls.Add(this.label16);
-            this.tabPageSpeed.Controls.Add(this.numericUpDownSpeedFilter);
-            this.tabPageSpeed.Controls.Add(this.progressBarSpeed);
-            this.tabPageSpeed.Controls.Add(this.pictureBoxSpeed);
-            this.tabPageSpeed.Controls.Add(this.label15);
-            this.tabPageSpeed.Controls.Add(this.label14);
-            this.tabPageSpeed.Controls.Add(this.numericUpDownPWMDuty);
-            this.tabPageSpeed.Controls.Add(this.buttonPWMDuty);
-            this.tabPageSpeed.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSpeed.Name = "tabPageSpeed";
-            this.tabPageSpeed.Size = new System.Drawing.Size(616, 358);
-            this.tabPageSpeed.TabIndex = 6;
-            this.tabPageSpeed.Text = "Speed";
-            // 
-            // buttonPWMDuty
-            // 
-            this.buttonPWMDuty.Location = new System.Drawing.Point(256, 8);
-            this.buttonPWMDuty.Name = "buttonPWMDuty";
-            this.buttonPWMDuty.Size = new System.Drawing.Size(104, 20);
-            this.buttonPWMDuty.TabIndex = 0;
-            this.buttonPWMDuty.Text = "Set PWM Duty";
-            this.buttonPWMDuty.UseVisualStyleBackColor = true;
-            this.buttonPWMDuty.Click += new System.EventHandler(this.buttonPWMDuty_Click);
-            // 
-            // numericUpDownPWMDuty
-            // 
-            this.numericUpDownPWMDuty.Location = new System.Drawing.Point(72, 8);
-            this.numericUpDownPWMDuty.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownPWMDuty.Name = "numericUpDownPWMDuty";
-            this.numericUpDownPWMDuty.Size = new System.Drawing.Size(72, 19);
-            this.numericUpDownPWMDuty.TabIndex = 1;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 12);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(58, 12);
-            this.label14.TabIndex = 2;
-            this.label14.Text = "PWM Duty";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(368, 12);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(96, 12);
-            this.label15.TabIndex = 3;
-            this.label15.Text = "Save \"speed.csv\"";
-            // 
-            // pictureBoxSpeed
-            // 
-            this.pictureBoxSpeed.BackColor = System.Drawing.Color.White;
-            this.pictureBoxSpeed.Location = new System.Drawing.Point(0, 32);
-            this.pictureBoxSpeed.Name = "pictureBoxSpeed";
-            this.pictureBoxSpeed.Size = new System.Drawing.Size(616, 328);
-            this.pictureBoxSpeed.TabIndex = 4;
-            this.pictureBoxSpeed.TabStop = false;
-            // 
-            // progressBarSpeed
-            // 
-            this.progressBarSpeed.Location = new System.Drawing.Point(464, 8);
-            this.progressBarSpeed.Name = "progressBarSpeed";
-            this.progressBarSpeed.Size = new System.Drawing.Size(144, 20);
-            this.progressBarSpeed.TabIndex = 5;
-            // 
-            // numericUpDownSpeedFilter
-            // 
-            this.numericUpDownSpeedFilter.DecimalPlaces = 3;
-            this.numericUpDownSpeedFilter.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            196608});
-            this.numericUpDownSpeedFilter.Location = new System.Drawing.Point(176, 8);
-            this.numericUpDownSpeedFilter.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownSpeedFilter.Name = "numericUpDownSpeedFilter";
-            this.numericUpDownSpeedFilter.Size = new System.Drawing.Size(72, 19);
-            this.numericUpDownSpeedFilter.TabIndex = 6;
-            this.numericUpDownSpeedFilter.Value = new decimal(new int[] {
-            95,
-            0,
-            0,
-            131072});
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(152, 12);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(20, 12);
-            this.label16.TabIndex = 7;
-            this.label16.Text = "TC";
+            this.textBoxServoType.Location = new System.Drawing.Point(128, 8);
+            this.textBoxServoType.Name = "textBoxServoType";
+            this.textBoxServoType.Size = new System.Drawing.Size(120, 19);
+            this.textBoxServoType.TabIndex = 1;
             // 
             // FormB3ServoChecker
             // 
@@ -829,12 +851,19 @@ namespace B3MServoChecker
             this.tabPageTorque.ResumeLayout(false);
             this.tabPageTorque.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.tabPageSpeed.ResumeLayout(false);
+            this.tabPageSpeed.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeedFilter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMDuty)).EndInit();
             this.tabPageBacklash.ResumeLayout(false);
             this.tabPageBacklash.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxAngle)).EndInit();
             this.tabPageVibration.ResumeLayout(false);
             this.tabPageVibration.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            this.tabPageSetParameter.ResumeLayout(false);
+            this.tabPageSetParameter.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownID)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownKd)).EndInit();
@@ -842,11 +871,6 @@ namespace B3MServoChecker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStatic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDynamic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMFrequency)).EndInit();
-            this.tabPageSpeed.ResumeLayout(false);
-            this.tabPageSpeed.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPWMDuty)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeedFilter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -913,6 +937,8 @@ namespace B3MServoChecker
         private System.Windows.Forms.ProgressBar progressBarSpeed;
         private System.Windows.Forms.NumericUpDown numericUpDownSpeedFilter;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Button buttonSetParameters;
+        private System.Windows.Forms.TextBox textBoxServoType;
     }
 }
 

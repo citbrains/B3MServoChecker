@@ -10,6 +10,7 @@ using System.IO;
 using System.Threading;
 using System.IO.Ports;
 using System.Diagnostics;
+using Extensions.Collections;
 
 namespace B3MServoChecker
 {
@@ -342,6 +343,78 @@ namespace B3MServoChecker
                 file.WriteLine(string.Format("{0}, {1}", angle[i], angular_velocity[i]));
             }
             file.Close();
+        }
+
+        private void buttonSetParameters_Click(object sender, EventArgs e)
+        {
+            byte motor_type = 0, torque_type = 0;
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.getModel(id, ref motor_type, ref torque_type);
+            if (motor_type == 'B' && torque_type == 4)
+            {
+                textBoxServoType.Text = "B3M-SB-1040-A";
+                // save parameters
+                _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
+                _b3m.setDataByte(id, B3MLib.B3MLib.CONTROL_GAIN_PRESET, 0);
+                _b3m.saveROM(id);
+                readParameters();
+            }
+            else if (motor_type == 'C' && torque_type == 4)
+            {
+                textBoxServoType.Text = "B3M-SC-1040-A";
+                // save parameters
+                _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
+                _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
+                _b3m.setDataByte(id, B3MLib.B3MLib.CONTROL_GAIN_PRESET, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP0, 35000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD0, 500);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI0, 1800);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP1, 5500);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD1, 100);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI1, 580);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, 100);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, 50);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP2, 100000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD2, 500);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI2, 10000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, 100);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
+                _b3m.saveROM(id);
+                readParameters();
+            }
+            else if (motor_type == 'C' && torque_type == 7)
+            {
+                textBoxServoType.Text = "B3M-SC-1170-A";
+                // save parameters
+                _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
+                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
+                _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
+                _b3m.setDataByte(id, B3MLib.B3MLib.CONTROL_GAIN_PRESET, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP0, 42000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD0, 400);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI0, 1000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP1, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD1, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI1, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP2, 42000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD2, 750);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI2, 6000);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, 0);
+                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
+                _b3m.saveROM(id);
+                readParameters();
+            }
+            else
+            {
+                textBoxServoType.Text = "ERROR";
+            }
         }
     }
 }

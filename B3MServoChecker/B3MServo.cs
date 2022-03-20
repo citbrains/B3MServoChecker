@@ -217,7 +217,68 @@ namespace B3MServoChecker
             return true;
         }
 
+        public bool getModel(byte servoID, ref byte motor_type, ref byte torque_type)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[6];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONFIG_MODEL_TYPE_MOTOR, 1, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            motor_type = rx[4];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, B3MLib.B3MLib.CONFIG_MODEL_NUMBER_TORQUE, 1, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            torque_type = rx[4];
+
+            return true;
+        }
+
+        public bool setDataByte(byte servoID, byte address, byte value)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[5];
+
+            cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, address, servoID, new byte[] { value });
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+
+            return true;
+        }
+
+        public bool setDataShort(byte servoID, byte address, short value)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[5];
+            byte[] value_bytes = BitConverter.GetBytes(value);
+
+            cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, address, servoID, value_bytes);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+
+            return true;
+        }
+
+        public bool setDataLong(byte servoID, byte address, long value)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[5];
+            byte[] value_bytes = BitConverter.GetBytes(value);
+
+            cmd.Bytes = B3MLib.B3MLib.WriteSingle(0x00, address, servoID, value_bytes);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+
+            return true;
+        }
+
+        public bool saveROM(byte servoID)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[5];
+
+            cmd.Bytes = B3MLib.B3MLib.Save(0x00, servoID);
+            B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+
+            return true;
+        }
+
         private SerialPort _serialPort;
     }
-
 }
