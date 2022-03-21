@@ -48,3 +48,9 @@ How to measure angular velocity
 How to write and save parameters
 
 [![IMAGE](http://img.youtube.com/vi/50FzWhF5oys/0.jpg)](https://youtu.be/50FzWhF5oys)
+
+### Experiment (Measure angular velocity) 
+
+How to measure the angular velocity (deg/s) when PWM duty is 1250 (duty ratio 50%)
+
+[![IMAGE](http://img.youtube.com/vi/kSsV40biiYE/0.jpg)](https://youtu.be/kSsV40biiYE)
