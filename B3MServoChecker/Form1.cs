@@ -164,7 +164,7 @@ namespace B3MServoChecker
             }
             catch
             {
-                MessageBox.Show("COMが開けません！！");
+                MessageBox.Show("Cannot open COM");
                 serialPort1.Close();
                 return;
             }
@@ -183,6 +183,7 @@ namespace B3MServoChecker
             }
             if (find_ID)
             {
+                is_all_parameters_set = false;
                 readParameters();
                 is_all_parameters_set = true;
             }
@@ -197,8 +198,9 @@ namespace B3MServoChecker
         private void buttonMinPWM_Click(object sender, EventArgs e)
         {
             byte id = (byte)numericUpDownID.Value;
-            _b3m.setFFMode(id);
+            _b3m.servoOffControlFForward(id);
             _b3m.setPWM(id, 0);
+            _b3m.setFFMode(id);
             double angle0 = 0;
             _b3m.getAngle(id, ref angle0);
             for(int i = 0; i < 2000; i += 1)
@@ -309,7 +311,7 @@ namespace B3MServoChecker
             byte id = (byte)numericUpDownID.Value;
             double tc = (double)numericUpDownSpeedFilter.Value;
             double pwm_duty = (double)numericUpDownPWMDuty.Value;
-            _b3m.servoOff(id);
+            _b3m.servoOffControlFForward(id);
             _b3m.setPWM(id, 0);
             _b3m.setFFMode(id);
             _b3m.setPWM(id, pwm_duty);
@@ -346,6 +348,82 @@ namespace B3MServoChecker
             StreamWriter file = new StreamWriter(@"speed.csv", false, Encoding.UTF8);
             file.WriteLine("angle(deg), speed(deg/s)");
             for (int i = 0; i < 500; i++)
+            {
+                file.WriteLine(string.Format("{0}, {1}", angle[i], angular_velocity[i]));
+            }
+            file.Close();
+        }
+
+        private void buttonExpStart_Click(object sender, EventArgs e)
+        {
+            const int num_data = 100;
+            short target_pwm_duty = 1250; 
+            double angular_vel = 0;
+            double[] angle = new double[num_data];
+            double[] angular_velocity = new double[num_data];
+            byte id = (byte)numericUpDownID.Value;
+            double tc = (double)numericUpDownSpeedFilter.Value;
+            short pwm_freq = 0;
+            _b3m.getPWMFrequency(id, ref pwm_freq);
+            if (pwm_freq != 20000)
+            {
+                MessageBox.Show("PWM Freq should be 20000Hz");
+                return;
+            }
+            _b3m.servoOffControlFForward(id);
+            _b3m.setPWM(id, 0);
+            _b3m.setFFMode(id);
+
+            for (int i = 1; i < 100; i += 1)
+            {
+                numericUpDownPWMDuty.Value = target_pwm_duty * (i + 1) / 100;
+                _b3m.setPWM(id, (double)numericUpDownPWMDuty.Value);
+                Thread.Sleep(30);
+            }
+            _b3m.getAngularVelocity(id, ref angular_velocity[0]);
+            for (int i = 1; i < 100; i += 1)
+            {
+                _b3m.getAngularVelocity(id, ref angular_vel);
+                angular_velocity[i] = tc * angular_velocity[i - 1] + (1.0 - tc) * angular_vel;
+                Thread.Sleep(10);
+            }
+            _b3m.getAngle(id, ref angle[0]);
+            angular_velocity[0] = angular_velocity[100 - 1];
+            double x0 = 300, y0 = 290, xr = 280.0 / 180, yr = 290.0 / 300;
+            Graphics g = this.pictureBoxSpeed.CreateGraphics();
+            g.DrawLine(Pens.Black, (int)(-180 * xr + x0), (int)y0, (int)(180 * xr + x0), (int)y0);
+            g.DrawLine(Pens.Black, (int)x0, (int)y0, (int)x0, 0);
+            Bitmap p = new Bitmap(this.pictureBoxSpeed.Width, this.pictureBoxSpeed.Height);
+            for (int i = 1; i < num_data; i += 1)
+            {
+                _b3m.getAngle(id, ref angle[i]);
+                Thread.Sleep(5);
+                _b3m.getAngularVelocity(id, ref angular_vel);
+                angular_velocity[i] = tc * angular_velocity[i - 1] + (1.0 - tc) * angular_vel;
+                progressBarSpeed.Value = i / 1;
+                Thread.Sleep(5);
+                int y = (int)(-angular_velocity[i] * yr + y0);
+                y = Math.Max(Math.Min(y, this.pictureBoxSpeed.Height - 1), 0);
+                p.SetPixel((int)(angle[i] * xr + x0), y, Color.Black);
+                g.DrawImageUnscaled(p, 0, 0);
+            }
+            for (int i = 1; i < 100; i += 1)
+            {
+                numericUpDownPWMDuty.Value = target_pwm_duty * (100 - i) / 100;
+                _b3m.setPWM(id, (double)numericUpDownPWMDuty.Value);
+                Thread.Sleep(30);
+            }
+            _b3m.servoOff(id);
+            progressBarSpeed.Value = 0;
+            double sum_angular_velocity = 0;
+            for (int i = 0; i < num_data; i++)
+            {
+                sum_angular_velocity += angular_velocity[i];
+            }
+            textBoxExp1Result.Text = string.Format("{0:F3}", sum_angular_velocity / num_data);
+            StreamWriter file = new StreamWriter(@"exp1.csv", false, Encoding.UTF8);
+            file.WriteLine("angle(deg), speed(deg/s)");
+            for (int i = 0; i < num_data; i++)
             {
                 file.WriteLine(string.Format("{0}, {1}", angle[i], angular_velocity[i]));
             }

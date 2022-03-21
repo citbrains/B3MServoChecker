@@ -49,6 +49,9 @@ namespace B3MServoChecker
             this.buttonMinPWM = new System.Windows.Forms.Button();
             this.buttonCurrent = new System.Windows.Forms.Button();
             this.tabPageSpeed = new System.Windows.Forms.TabPage();
+            this.textBoxExp1Result = new System.Windows.Forms.TextBox();
+            this.buttonExpStart = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.numericUpDownSpeedFilter = new System.Windows.Forms.NumericUpDown();
             this.progressBarSpeed = new System.Windows.Forms.ProgressBar();
@@ -70,6 +73,7 @@ namespace B3MServoChecker
             this.buttonVibration = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.tabPageSetParameter = new System.Windows.Forms.TabPage();
+            this.textBoxSetParameterResult = new System.Windows.Forms.TextBox();
             this.textBoxServoType = new System.Windows.Forms.TextBox();
             this.buttonSetParameters = new System.Windows.Forms.Button();
             this.numericUpDownID = new System.Windows.Forms.NumericUpDown();
@@ -91,7 +95,7 @@ namespace B3MServoChecker
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.timerPictureBoxAngle = new System.Windows.Forms.Timer(this.components);
-            this.textBoxSetParameterResult = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
@@ -319,6 +323,10 @@ namespace B3MServoChecker
             // tabPageSpeed
             // 
             this.tabPageSpeed.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSpeed.Controls.Add(this.label18);
+            this.tabPageSpeed.Controls.Add(this.textBoxExp1Result);
+            this.tabPageSpeed.Controls.Add(this.buttonExpStart);
+            this.tabPageSpeed.Controls.Add(this.label17);
             this.tabPageSpeed.Controls.Add(this.label16);
             this.tabPageSpeed.Controls.Add(this.numericUpDownSpeedFilter);
             this.tabPageSpeed.Controls.Add(this.progressBarSpeed);
@@ -332,6 +340,35 @@ namespace B3MServoChecker
             this.tabPageSpeed.Size = new System.Drawing.Size(616, 358);
             this.tabPageSpeed.TabIndex = 6;
             this.tabPageSpeed.Text = "Speed";
+            // 
+            // textBoxExp1Result
+            // 
+            this.textBoxExp1Result.Location = new System.Drawing.Point(120, 32);
+            this.textBoxExp1Result.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBoxExp1Result.Name = "textBoxExp1Result";
+            this.textBoxExp1Result.Size = new System.Drawing.Size(115, 19);
+            this.textBoxExp1Result.TabIndex = 10;
+            // 
+            // buttonExpStart
+            // 
+            this.buttonExpStart.Location = new System.Drawing.Point(54, 32);
+            this.buttonExpStart.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonExpStart.Name = "buttonExpStart";
+            this.buttonExpStart.Size = new System.Drawing.Size(56, 18);
+            this.buttonExpStart.TabIndex = 9;
+            this.buttonExpStart.Text = "Start";
+            this.buttonExpStart.UseVisualStyleBackColor = true;
+            this.buttonExpStart.Click += new System.EventHandler(this.buttonExpStart_Click);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(12, 35);
+            this.label17.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(36, 12);
+            this.label17.TabIndex = 8;
+            this.label17.Text = "Exp. 1";
             // 
             // label16
             // 
@@ -376,9 +413,9 @@ namespace B3MServoChecker
             // pictureBoxSpeed
             // 
             this.pictureBoxSpeed.BackColor = System.Drawing.Color.White;
-            this.pictureBoxSpeed.Location = new System.Drawing.Point(0, 32);
+            this.pictureBoxSpeed.Location = new System.Drawing.Point(0, 58);
             this.pictureBoxSpeed.Name = "pictureBoxSpeed";
-            this.pictureBoxSpeed.Size = new System.Drawing.Size(616, 328);
+            this.pictureBoxSpeed.Size = new System.Drawing.Size(616, 302);
             this.pictureBoxSpeed.TabIndex = 4;
             this.pictureBoxSpeed.TabStop = false;
             // 
@@ -561,6 +598,14 @@ namespace B3MServoChecker
             this.tabPageSetParameter.Size = new System.Drawing.Size(616, 358);
             this.tabPageSetParameter.TabIndex = 4;
             this.tabPageSetParameter.Text = "SetParameter";
+            // 
+            // textBoxSetParameterResult
+            // 
+            this.textBoxSetParameterResult.Location = new System.Drawing.Point(256, 8);
+            this.textBoxSetParameterResult.Name = "textBoxSetParameterResult";
+            this.textBoxSetParameterResult.Size = new System.Drawing.Size(120, 19);
+            this.textBoxSetParameterResult.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.textBoxSetParameterResult, "Display result (If successful, display the model number)");
             // 
             // textBoxServoType
             // 
@@ -838,13 +883,15 @@ namespace B3MServoChecker
             // 
             this.timerPictureBoxAngle.Tick += new System.EventHandler(this.timerPictureBoxAngle_Tick);
             // 
-            // textBoxSetParameterResult
+            // label18
             // 
-            this.textBoxSetParameterResult.Location = new System.Drawing.Point(256, 8);
-            this.textBoxSetParameterResult.Name = "textBoxSetParameterResult";
-            this.textBoxSetParameterResult.Size = new System.Drawing.Size(120, 19);
-            this.textBoxSetParameterResult.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.textBoxSetParameterResult, "Display result (If successful, display the model number)");
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(240, 36);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(47, 12);
+            this.label18.TabIndex = 11;
+            this.label18.Text = "deg/sec";
             // 
             // FormB3ServoChecker
             // 
@@ -876,7 +923,7 @@ namespace B3MServoChecker
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormB3ServoChecker";
-            this.Text = "B3M Servo Checker";
+            this.Text = "B3M Servo Checker [CIT Brains ver. 220321]";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).EndInit();
@@ -978,6 +1025,10 @@ namespace B3MServoChecker
         private System.Windows.Forms.Button buttonSetParameters;
         private System.Windows.Forms.TextBox textBoxServoType;
         private System.Windows.Forms.TextBox textBoxSetParameterResult;
+        private System.Windows.Forms.Button buttonExpStart;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox textBoxExp1Result;
+        private System.Windows.Forms.Label label18;
     }
 }
 

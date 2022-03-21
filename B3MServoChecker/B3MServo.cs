@@ -34,6 +34,16 @@ namespace B3MServoChecker
             return B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
         }
 
+        public bool servoOffControlFForward(byte servoID)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[5];
+            byte mode = ((byte)(byte)B3MLib.B3MLib.Options.ControlFForward | (byte)B3MLib.B3MLib.Options.RunFree);
+
+            cmd.Bytes = B3MLib.B3MLib.WriteSingle(0, B3MLib.B3MLib.SERVO_TORQUE_ON, servoID, new byte[] { mode });
+            return B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx);
+        }
+
         public bool setFFMode(byte servoID)
         {
             ByteList cmd = new ByteList();
