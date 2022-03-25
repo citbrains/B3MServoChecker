@@ -430,6 +430,36 @@ namespace B3MServoChecker
             file.Close();
         }
 
+        private void buttonControl0deg_Click(object sender, EventArgs e)
+        {
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.setAngle(id, 0);
+        }
+
+        private void buttonControl45deg_Click(object sender, EventArgs e)
+        {
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.setAngle(id, 45);
+        }
+
+        private void buttonControl90deg_Click(object sender, EventArgs e)
+        {
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.setAngle(id, 90);
+        }
+
+        private void buttonControl315deg_Click(object sender, EventArgs e)
+        {
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.setAngle(id, -45);
+        }
+
+        private void buttonControl270deg_Click(object sender, EventArgs e)
+        {
+            byte id = (byte)numericUpDownID.Value;
+            _b3m.setAngle(id, -90);
+        }
+
         private void buttonSetParameters_Click(object sender, EventArgs e)
         {
             byte motor_type = 0, torque_type = 0;
