@@ -101,6 +101,7 @@ namespace B3MServoChecker
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.timerPictureBoxAngle = new System.Windows.Forms.Timer(this.components);
+            this.buttonGetAllParameters = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPos)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabBasic.SuspendLayout();
@@ -679,6 +680,7 @@ namespace B3MServoChecker
             // tabPageSetParameter
             // 
             this.tabPageSetParameter.BackColor = System.Drawing.Color.Transparent;
+            this.tabPageSetParameter.Controls.Add(this.buttonGetAllParameters);
             this.tabPageSetParameter.Controls.Add(this.textBoxSetParameterResult);
             this.tabPageSetParameter.Controls.Add(this.textBoxServoType);
             this.tabPageSetParameter.Controls.Add(this.buttonSetParameters);
@@ -975,6 +977,17 @@ namespace B3MServoChecker
             // 
             this.timerPictureBoxAngle.Tick += new System.EventHandler(this.timerPictureBoxAngle_Tick);
             // 
+            // buttonGetAllParameters
+            // 
+            this.buttonGetAllParameters.Location = new System.Drawing.Point(8, 80);
+            this.buttonGetAllParameters.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGetAllParameters.Name = "buttonGetAllParameters";
+            this.buttonGetAllParameters.Size = new System.Drawing.Size(184, 29);
+            this.buttonGetAllParameters.TabIndex = 3;
+            this.buttonGetAllParameters.Text = "Get all Parameters";
+            this.buttonGetAllParameters.UseVisualStyleBackColor = true;
+            this.buttonGetAllParameters.Click += new System.EventHandler(this.buttonGetAllParameters_Click);
+            // 
             // FormB3ServoChecker
             // 
             this.AllowDrop = true;
@@ -1116,6 +1129,7 @@ namespace B3MServoChecker
         private System.Windows.Forms.Button buttonControl315deg;
         private System.Windows.Forms.Button buttonControl45deg;
         private System.Windows.Forms.Button buttonControl0deg;
+        private System.Windows.Forms.Button buttonGetAllParameters;
     }
 }
 

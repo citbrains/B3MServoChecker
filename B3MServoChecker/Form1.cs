@@ -460,6 +460,71 @@ namespace B3MServoChecker
             _b3m.setAngle(id, -90);
         }
 
+        private void buttonGetAllParameters_Click(object sender, EventArgs e)
+        {
+            StreamWriter file = new StreamWriter(@"servo_parameters.csv", false, Encoding.UTF8);
+            file.WriteLine("ID, TYPE, POS_MIN, POS_MAX, POS_CEN, FREQ, DEADBAND, PWM_LIM, GAIN_PRE, KP0, KD0, KI0, STATIC0, DYNAMIC0, KP1, KD1, KI1, STATIC1, DYNAMIC1, KP2, KD2, KI2, STATIC2, DYNAMIC2");
+            for (byte id = 1; id <= 19; id++)
+            {
+                byte motor_type = 0, torque_type = 0;
+                byte val_byte = 0;
+                short val_short = 0;
+                long val_long = 0;
+                _b3m.getModel(id, ref motor_type, ref torque_type);
+                file.Write(string.Format("{0}, ", id));
+                if (motor_type == 'B' && torque_type == 4) file.Write("B3M-SB-1040-A, ");
+                else if (motor_type == 'C' && torque_type == 4) file.Write("B3M-SC-1040-A, ");
+                else if (motor_type == 'C' && torque_type == 7) file.Write("B3M-SC-1170-A, ");
+                _b3m.getDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, ref val_byte);
+                file.Write(string.Format("{0}, ", val_byte));
+                _b3m.getDataByte(id, B3MLib.B3MLib.CONTROL_GAIN_PRESET, ref val_byte);
+                file.Write(string.Format("{0}, ", val_byte));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KP0, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KD0, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KI0, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KP1, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KD1, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KI1, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KP2, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KD2, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataLong(id, B3MLib.B3MLib.CONTROL_KI2, ref val_long);
+                file.Write(string.Format("{0}, ", val_long));
+                _b3m.getDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+                _b3m.getDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, ref val_short);
+                file.Write(string.Format("{0}, ", val_short));
+
+                file.WriteLine("");
+            }
+            file.Close();
+        }
+
         private void buttonSetParameters_Click(object sender, EventArgs e)
         {
             byte motor_type = 0, torque_type = 0;
@@ -472,7 +537,7 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.SYSTEM_BAUDRATE, 1000000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, -32000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, 32000);
-                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
+                //_b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
                 _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
@@ -488,7 +553,7 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.SYSTEM_BAUDRATE, 1000000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, -32000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, 32000);
-                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
+                //_b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
                 _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
@@ -496,18 +561,18 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP0, 35000);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD0, 500);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI0, 1800);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 0);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 0);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP1, 5500);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD1, 100);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI1, 580);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, 100);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, 50);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, 100);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, 50);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP2, 100000);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD2, 500);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI2, 10000);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, 100);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, 100);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
                 _b3m.saveROM(id);
                 readParameters();
                 textBoxSetParameterResult.Text = "Success";
@@ -519,7 +584,7 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.SYSTEM_BAUDRATE, 1000000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MIN, -32000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_MAX, 32000);
-                _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
+                //_b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_POSITION_CENTER, 0);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SERVO_PWM_FREQUENCY, 8000);
                 _b3m.setDataShort(id, B3MLib.B3MLib.SYSTEM_DEADBAND_WIDTH, 15);
                 _b3m.setDataByte(id, B3MLib.B3MLib.SYSTEM_PWM_LIMIT, 100);
@@ -527,18 +592,18 @@ namespace B3MServoChecker
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP0, 42000);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD0, 400);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI0, 1000);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 0);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION0, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION0, 0);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP1, 0);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD1, 0);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI1, 0);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, 0);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION1, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION1, 0);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KP2, 42000);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KD2, 750);
                 _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_KI2, 6000);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, 0);
-                _b3m.setDataLong(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_STATIC_FRICTION2, 0);
+                _b3m.setDataShort(id, B3MLib.B3MLib.CONTROL_DYNAMIC_FRICTION2, 50);
                 _b3m.saveROM(id);
                 readParameters();
                 textBoxSetParameterResult.Text = "Success";

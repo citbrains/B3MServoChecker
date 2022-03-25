@@ -278,6 +278,42 @@ namespace B3MServoChecker
             return true;
         }
 
+        public bool getDataByte(byte servoID, byte address, ref byte value)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[6];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, address, 1, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            value = rx[4];
+
+            return true;
+        }
+
+        public bool getDataShort(byte servoID, byte address, ref short value)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[7];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, address, 2, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            value = (short)Extensions.Converter.ByteConverter.ByteArrayToInt16(rx[4], rx[5]);
+
+            return true;
+        }
+
+        public bool getDataLong(byte servoID, byte address, ref long value)
+        {
+            ByteList cmd = new ByteList();
+            byte[] rx = new byte[9];
+
+            cmd.Bytes = B3MLib.B3MLib.Read(0x00, address, 4, servoID);
+            if (B3MLib.B3MLib.Synchronize(_serialPort, cmd.Bytes, ref rx) == false) return false;
+            value = (long)Extensions.Converter.ByteConverter.ByteArrayToInt32(rx[4], rx[5], rx[6], rx[7]);
+
+            return true;
+        }
+
         public bool saveROM(byte servoID)
         {
             ByteList cmd = new ByteList();
